@@ -22,6 +22,20 @@ public class Estoque {
         return itemEncontrado;
     }
 
+    public static ArrayList<Item> getItemPorNome(String nome) {
+        //O nome pode ser só o começo
+        ArrayList<Item> itensCorrespondentes = new ArrayList<>();
+
+        for (Item item : items) {
+            if (item.getNome().startsWith(nome)) {
+                itensCorrespondentes.add(item);
+            }
+        }
+
+        return itensCorrespondentes;
+    }
+
+
     public void adicionarItems (ArrayList<Item> items) {
         Estoque.items.addAll(items);
     }

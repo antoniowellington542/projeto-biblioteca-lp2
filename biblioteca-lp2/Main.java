@@ -2,16 +2,23 @@ import java.io.*;
 import java.util.*;
 import Biblioteca.Biblioteca;
 import Contas.Funcionario;
-
+import Estoque.Estoque;
 
 public class Main {
 
   private static final String ARQUIVO_USUARIOS = "usuarios.txt";
 
   public static void main(String[] args) {
+    Estoque estoque = new Estoque();
     Biblioteca biblioteca = new Biblioteca();
+    biblioteca.estoque = estoque;
+    
     Funcionario admin = new Funcionario("admin", "admin", "admin", true);
     admin.biblioteca = biblioteca;
+
+    //TODO carregar os livros no estoque
+    //Carregar usuarios da lista de usuarios dentro da lista em biblioteca
+    //Lembrar de definir biblioteca para todos os usuários
 
     Scanner scanner = new Scanner(System.in);
 

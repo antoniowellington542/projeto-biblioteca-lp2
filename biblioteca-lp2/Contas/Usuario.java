@@ -2,6 +2,7 @@ package Contas;
 
 import java.util.ArrayList;
 
+import Biblioteca.Biblioteca;
 import Item.Item;
 
 public class Usuario implements Conta {
@@ -10,6 +11,7 @@ public class Usuario implements Conta {
     private String nome;
     private String cpf;
     private boolean admin;
+    public Biblioteca biblioteca;
 
     public Usuario(String senha, String nome, String cpf, boolean admin) {
         this.login = cpf;
@@ -31,7 +33,11 @@ public class Usuario implements Conta {
 
     @Override
     public ArrayList<Item> pesquisaLivro(String nomeLivro){
-        //Chama o método de Estoque para pesquisa de livro por nome(novo)
-        //Return livrosList;
+        ArrayList<Item> livros = this.biblioteca.estoque.getItemPorNome(nomeLivro);
+        if (livros.isEmpty()) {
+            System.out.println("Nenhum item correspondente encontrado.");
+        } 
+        return livros;
     };
+
 }

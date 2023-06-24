@@ -3,6 +3,8 @@ package Biblioteca;
 import Emprestimo.Emprestimo;
 import Contas.Usuario;
 import Contas.Funcionario;
+import Estoque.Estoque;
+import Item.Item;
 
 import java.util.ArrayList;
 
@@ -10,15 +12,19 @@ public class Biblioteca {
     private ArrayList<Usuario> usuarios = new ArrayList<>();
     private ArrayList<Funcionario> funcionarios = new ArrayList<>();
     private ArrayList<Emprestimo> emprestimos = new ArrayList<>();
+    public Estoque estoque;
 
     public Usuario buscaUsuario(String cpf) {
+        Usuario usuarioCorrespondente = null;
         for(Usuario usuario : usuarios) {
-            if (usuario)
-            {
-                return usuario;
+            if (usuario.getCpf().equals(cpf)) {
+                usuarioCorrespondente = usuario;
             }
         }
-        return null;
+        if(usuarioCorrespondente == null){
+            System.out.println("Usuário não encontrado encontrado.");
+        }
+        return usuarioCorrespondente;
     }
 
     public ArrayList<Emprestimo> getEmprestimos (String cpf) {

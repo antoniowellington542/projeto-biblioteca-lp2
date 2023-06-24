@@ -33,8 +33,11 @@ public class Funcionario implements Conta {
 
     @Override
     public ArrayList<Item> pesquisaLivro(String nomeLivro){
-        //Chama o método de Estoque para pesquisa de livro por nome(novo)
-        //Return livrosList
+        ArrayList<Item> livros = this.biblioteca.estoque.getItemPorNome(nomeLivro);
+        if (livros.isEmpty()) {
+            System.out.println("Nenhum item correspondente encontrado.");
+        } 
+        return livros;
     };
 
     public Usuario pesquisaUsuario(String cpf){
