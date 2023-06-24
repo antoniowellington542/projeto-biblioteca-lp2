@@ -61,12 +61,12 @@ public class Biblioteca {
     }
 
     public void adicionarUsuario(String nome, String senha, String cpf) {
-        Usuario usuario = new Usuario(nome, senha, cpf);
+        Usuario usuario = new Usuario(nome, senha, cpf, false);
         usuarios.add(usuario);
     }
 
     public void adicionarFuncionario(String nome, String senha, String cpf) {
-        Funcionario funcionario = new Funcionario(nome, senha, cpf);
+        Funcionario funcionario = new Funcionario(nome, senha, cpf, true);
         funcionarios.add(funcionario);
     }
 }

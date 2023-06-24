@@ -31,7 +31,7 @@ public class Estoque {
                 itensCorrespondentes.add(item);
             }
         }
-
+        
         return itensCorrespondentes;
     }
 
