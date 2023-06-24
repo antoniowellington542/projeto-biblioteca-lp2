@@ -1,8 +1,8 @@
 package Biblioteca;
 
 import Emprestimo.Emprestimo;
-import Usuario.Usuario;
-import Usuario.Funcionario;
+import Contas.Usuario;
+import Contas.Funcionario;
 
 import java.util.ArrayList;
 

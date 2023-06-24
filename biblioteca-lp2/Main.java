@@ -1,11 +1,18 @@
 import java.io.*;
 import java.util.*;
+import Biblioteca.Biblioteca;
+import Contas.Funcionario;
+
 
 public class Main {
 
   private static final String ARQUIVO_USUARIOS = "usuarios.txt";
 
   public static void main(String[] args) {
+    Biblioteca biblioteca = new Biblioteca();
+    Funcionario admin = new Funcionario("admin", "admin", "admin", true);
+    admin.biblioteca = biblioteca;
+
     Scanner scanner = new Scanner(System.in);
 
     exibirMenuPrincipal(scanner);
