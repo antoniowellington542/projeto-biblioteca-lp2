@@ -5,15 +5,14 @@ import Contas.Funcionario;
 import Estoque.Estoque;
 
 public class Main {
+  private static Estoque estoque = new Estoque();
+  private static Biblioteca biblioteca = new Biblioteca();
+  private static Funcionario admin = new Funcionario("admin", "admin", "admin", true);
 
   private static final String ARQUIVO_USUARIOS = "usuarios.txt";
 
   public static void main(String[] args) {
-    Estoque estoque = new Estoque();
-    Biblioteca biblioteca = new Biblioteca();
     biblioteca.estoque = estoque;
-    
-    Funcionario admin = new Funcionario("admin", "admin", "admin", true);
     admin.biblioteca = biblioteca;
 
     //TODO carregar os livros no estoque
