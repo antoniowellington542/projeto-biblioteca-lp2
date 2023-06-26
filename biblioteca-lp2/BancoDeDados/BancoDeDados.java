@@ -1,6 +1,5 @@
 package BancoDeDados;
 
-import Usuario.Usuario;
 
 import java.io.*;
 import java.util.Scanner;
@@ -19,10 +18,6 @@ public class BancoDeDados {
             System.out.println("Erro ao cadastrar usuário.");
             e.printStackTrace();
         }
-    }
-
-    public Usuario getUsuario (String usuario) {
-
     }
 
     public void deletarUsuario (String usuario) {}
