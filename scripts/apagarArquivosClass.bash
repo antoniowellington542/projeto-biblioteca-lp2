@@ -1,6 +1,6 @@
 #!/bin/bash
 
-diretorio_raiz="$(pwd)/biblioteca-lp2"
+diretorio_raiz="../biblioteca-lp2"
 
 # Função para excluir os arquivos .class
 excluir_arquivos_class() {
