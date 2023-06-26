@@ -1,0 +1,57 @@
+package Tela;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
+public class TelaDeLogin extends JPanel {
+    public TelaDeLogin () {
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints constantes = new GridBagConstraints();
+        constantes.insets = new Insets(5, 5, 5, 5);
+
+        JLabel labelDeCpf = new JLabel("Cpf");
+        constantes.gridx = 0;
+        constantes.gridy = 0;
+        add(labelDeCpf, constantes);
+
+        JTextField campoDeCpf = new JTextField(20);
+        constantes.gridx = 1;
+        add(campoDeCpf, constantes);
+
+        JLabel labelDeSenha = new JLabel("Senha");
+        constantes.gridx = 0;
+        constantes.gridy = 1;
+        add(labelDeSenha, constantes);
+
+        JTextField campoDeSenha = new JPasswordField(20);
+        constantes.gridx = 1;
+        add(campoDeSenha, constantes);
+
+        JButton botaoDeLogin = new JButton();
+        botaoDeLogin.setText("Login");
+        constantes.gridx = 0;
+        constantes.gridy = 2;
+        constantes.anchor = GridBagConstraints.CENTER;
+        constantes.gridwidth = 2;
+        botaoDeLogin.addActionListener(action -> {
+            this.login(campoDeCpf.getText(), campoDeSenha.getText());
+        });
+        add(botaoDeLogin, constantes);
+
+        JButton botaoDeRegistro = new JButton();
+        botaoDeRegistro.setText("Registrar?");
+        constantes.gridy = 3;
+        botaoDeRegistro.addActionListener(this::registrar);
+        add(botaoDeRegistro, constantes);
+    }
+
+    private void login(String cpf, String password) {
+        GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "telaPrincipal");
+    }
+
+    private void registrar(ActionEvent e) {
+        GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "registroDeUsuario");
+    }
+}
