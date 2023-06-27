@@ -24,25 +24,30 @@ public class BancoDeDados {
         }
     }
 
-    public static void carregarUsuarios(String nomeArquivo) throws FileNotFoundException {
-        File arquivo = new File(nomeArquivo);
-        Scanner scanner = new Scanner(arquivo);
+    public static void carregarUsuarios() {
+        String nomeArquivo = "usuarios.txt"; // Nome do arquivo a ser lido
+        try {
+            File arquivo = new File(nomeArquivo);
+            Scanner scanner = new Scanner(arquivo);
 
-        while (scanner.hasNextLine()) {
-            String linha = scanner.nextLine();
-            String[] partes = linha.split(",");
+            while (scanner.hasNextLine()) {
+                String linha = scanner.nextLine();
+                String[] partes = linha.split(",");
 
-            if (partes.length == 3) {
-                String usuario = partes[0].trim();
-                String senha = partes[1].trim();
-                String cpf = partes[2].trim();
+                if (partes.length == 3) {
+                    String usuario = partes[0].trim();
+                    String senha = partes[1].trim();
+                    String cpf = partes[2].trim();
 
-                Biblioteca.biblioteca.usuarios.add(new Usuario(senha, usuario, cpf, false));
-            } else {
-                System.out.println("Usuário não pode ser carregado na linha: " + linha);
+                    Biblioteca.biblioteca.usuarios.add(new Usuario(senha, usuario, cpf, false));
+                } else {
+                    System.out.println("Usuário não pode ser carregado na linha: " + linha);
+                }
             }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo de usuários não encontrado.");
         }
-        scanner.close();
     }
 
     public void deletarUsuario(String usuario) {
