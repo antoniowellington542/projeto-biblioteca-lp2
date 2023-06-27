@@ -32,6 +32,11 @@ public class Usuario implements Conta {
     }
 
     @Override
+    public String getSenha() {
+        return senha;
+    }
+
+    @Override
     public ArrayList<Item> pesquisaLivro(String nomeLivro){
         ArrayList<Item> livros = this.biblioteca.estoque.getItemPorNome(nomeLivro);
         if (livros.isEmpty()) {

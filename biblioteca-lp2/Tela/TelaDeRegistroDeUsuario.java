@@ -1,11 +1,14 @@
 package Tela;
 
+import BancoDeDados.BancoDeDados;
+import Biblioteca.Biblioteca;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class TelaDeRegistroDeUsuario extends JPanel {
-    public TelaDeRegistroDeUsuario () {
+    public TelaDeRegistroDeUsuario() {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
@@ -60,7 +63,16 @@ public class TelaDeRegistroDeUsuario extends JPanel {
         GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "login");
     }
 
-    private void registrar (String nome, String cpf, String senha) {
-        // Chamar metodo para registrar usuario
+    private void registrar(String nome, String cpf, String senha) {
+        // Chamar metodo para registrar usuario{
+        if (!nome.isEmpty() && !senha.isEmpty() && !cpf.isEmpty()) {
+            BancoDeDados.cadastrarUsuario(nome, senha, cpf);
+            Biblioteca.biblioteca.adicionarUsuario(nome, senha, cpf);
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.WARNING_MESSAGE);
+            GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "login");
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário, dados incompletos", "Alerta", JOptionPane.WARNING_MESSAGE);
+            System.out.println("Erro ao cadastrar usuário, dados incompletos");
+        }
     }
 }

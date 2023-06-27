@@ -9,10 +9,11 @@ import Item.Item;
 import java.util.ArrayList;
 
 public class Biblioteca {
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
-    private ArrayList<Funcionario> funcionarios = new ArrayList<>();
-    private ArrayList<Emprestimo> emprestimos = new ArrayList<>();
+    public ArrayList<Usuario> usuarios = new ArrayList<>();
+    public ArrayList<Funcionario> funcionarios = new ArrayList<>();
+    public ArrayList<Emprestimo> emprestimos = new ArrayList<>();
     public Estoque estoque;
+    public static Biblioteca biblioteca = new Biblioteca();
 
     public Usuario buscaUsuario(String cpf) {
         Usuario usuarioCorrespondente = null;
@@ -68,5 +69,14 @@ public class Biblioteca {
     public void adicionarFuncionario(String nome, String senha, String cpf) {
         Funcionario funcionario = new Funcionario(nome, senha, cpf, true);
         funcionarios.add(funcionario);
+    }
+
+    public Usuario loginUsuario(String cpf, String senha) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)) {
+                return usuario;
+            }
+        }
+        return null;
     }
 }

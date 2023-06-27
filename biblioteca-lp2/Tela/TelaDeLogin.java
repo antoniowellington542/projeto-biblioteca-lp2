@@ -1,11 +1,14 @@
 package Tela;
 
+import Biblioteca.Biblioteca;
+import Contas.Usuario;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class TelaDeLogin extends JPanel {
-    public TelaDeLogin () {
+    public TelaDeLogin() {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
@@ -48,7 +51,13 @@ public class TelaDeLogin extends JPanel {
     }
 
     private void login(String cpf, String password) {
-        GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "telaPrincipal");
+        Usuario usuario = Biblioteca.biblioteca.loginUsuario(cpf, password);
+        if (usuario != null) {
+            GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "telaPrincipal");
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Alerta", JOptionPane.WARNING_MESSAGE);
+            System.out.println("Usuário não encontrado");
+        }
     }
 
     private void registrar(ActionEvent e) {
