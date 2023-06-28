@@ -4,13 +4,13 @@ import javax.swing.*;
 
 public class TelaDeBuscarItem extends JPanel {
   
-  private Item buscarPorId(String id)
+  private void buscarPorId(String id)
   {    
      item = Biblioteca.biblioteca.getItemPorId(id);
      if(item != null)
      {
        JOptionPane.showMessageDialog(null, "Item encontrado", "Sucesso", JOptionPane.WARNING_MESSAGE);
-       return item;
+       return;
      }
        
     else
@@ -19,13 +19,13 @@ public class TelaDeBuscarItem extends JPanel {
     }
   }
 
-  private Item buscarPorNome(String nome)
+  private void buscarPorNome(String nome)
   {    
      item = Biblioteca.biblioteca.getItemPorNome(nome);
      if(item != null)
      {
        JOptionPane.showMessageDialog(null, "Item encontrado", "Sucesso", JOptionPane.WARNING_MESSAGE);
-       return item;
+       return;
      }
        
     else
