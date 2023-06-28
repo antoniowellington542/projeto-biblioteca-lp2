@@ -2,6 +2,8 @@ package Tela;
 
 import BancoDeDados.BancoDeDados;
 import Biblioteca.Biblioteca;
+import Contas.Funcionario;
+import Contas.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,11 +68,16 @@ public class TelaDeRegistroDeUsuario extends JPanel {
     private void registrar(String nome, String cpf, String senha) {
         // Chamar metodo para registrar usuario{
         if (!nome.isEmpty() && !senha.isEmpty() && !cpf.isEmpty()) {
-            //TODO fazer pesquisa de usuario e funcionario para evitar cpf repetido
-            BancoDeDados.cadastrarUsuario(nome, senha, cpf);
-            Biblioteca.biblioteca.adicionarUsuario(nome, senha, cpf);
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.WARNING_MESSAGE);
-            GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "login");
+            Usuario usuario = Biblioteca.biblioteca.buscaUsuario(cpf);
+            Funcionario funcionario = Biblioteca.biblioteca.buscaFuncionario(cpf);
+            if (funcionario == null && usuario == null) {
+                BancoDeDados.cadastrarUsuario(nome, senha, cpf);
+                Biblioteca.biblioteca.adicionarUsuario(nome, senha, cpf);
+                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.WARNING_MESSAGE);
+                GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "login");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário, CPF já cadastrado", "Alerta", JOptionPane.WARNING_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário, dados incompletos", "Alerta", JOptionPane.WARNING_MESSAGE);
             System.out.println("Erro ao cadastrar usuário, dados incompletos");

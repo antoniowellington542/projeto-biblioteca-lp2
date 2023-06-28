@@ -16,16 +16,23 @@ public class Biblioteca {
     public static Biblioteca biblioteca = new Biblioteca();
 
     public Usuario buscaUsuario(String cpf) {
-        Usuario usuarioCorrespondente = null;
         for (Usuario usuario : usuarios) {
             if (usuario.getCpf().equals(cpf)) {
-                usuarioCorrespondente = usuario;
+                return usuario;
             }
         }
-        if (usuarioCorrespondente == null) {
-            System.out.println("Usuário não encontrado encontrado.");
+        System.out.println("Usuário não encontrado encontrado.");
+        return null;
+    }
+
+    public Funcionario buscaFuncionario(String cpf) {
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getCpf().equals(cpf)) {
+                return funcionario;
+            }
         }
-        return usuarioCorrespondente;
+        System.out.println("Usuário não encontrado encontrado.");
+        return null;
     }
 
     public ArrayList<Emprestimo> getEmprestimos(String cpf) {
