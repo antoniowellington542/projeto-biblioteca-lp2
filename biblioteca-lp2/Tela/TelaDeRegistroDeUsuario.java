@@ -66,6 +66,7 @@ public class TelaDeRegistroDeUsuario extends JPanel {
     private void registrar(String nome, String cpf, String senha) {
         // Chamar metodo para registrar usuario{
         if (!nome.isEmpty() && !senha.isEmpty() && !cpf.isEmpty()) {
+            //TODO fazer pesquisa de usuario e funcionario para evitar cpf repetido
             BancoDeDados.cadastrarUsuario(nome, senha, cpf);
             Biblioteca.biblioteca.adicionarUsuario(nome, senha, cpf);
             JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.WARNING_MESSAGE);
