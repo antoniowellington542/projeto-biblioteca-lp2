@@ -16,19 +16,26 @@ public class Biblioteca {
     public static Biblioteca biblioteca = new Biblioteca();
 
     public Usuario buscaUsuario(String cpf) {
-        Usuario usuarioCorrespondente = null;
-        for(Usuario usuario : usuarios) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getCpf().equals(cpf)) {
-                usuarioCorrespondente = usuario;
+                return usuario;
             }
         }
-        if(usuarioCorrespondente == null){
-            System.out.println("Usuário não encontrado encontrado.");
-        }
-        return usuarioCorrespondente;
+        System.out.println("Usuário não encontrado encontrado.");
+        return null;
     }
 
-    public ArrayList<Emprestimo> getEmprestimos (String cpf) {
+    public Funcionario buscaFuncionario(String cpf) {
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getCpf().equals(cpf)) {
+                return funcionario;
+            }
+        }
+        System.out.println("Usuário não encontrado encontrado.");
+        return null;
+    }
+
+    public ArrayList<Emprestimo> getEmprestimos(String cpf) {
         ArrayList<Emprestimo> emprestimosUsuario = new ArrayList<>();
 
         for (Emprestimo emprestimo : emprestimos) {
@@ -40,10 +47,10 @@ public class Biblioteca {
         return emprestimosUsuario;
     }
 
-    public ArrayList<Emprestimo> getEmprestimos (String cpf, String id) {
+    public ArrayList<Emprestimo> getEmprestimos(String cpf, String id) {
         ArrayList<Emprestimo> emprestimosUsuario = new ArrayList<>();
 
-        for(Emprestimo emprestimo : emprestimos) {
+        for (Emprestimo emprestimo : emprestimos) {
             if (emprestimo.getCpf().equals(cpf) && emprestimo.getId().equals(id)) {
                 emprestimosUsuario.add(emprestimo);
             }
@@ -75,6 +82,15 @@ public class Biblioteca {
         for (Usuario usuario : usuarios) {
             if (usuario.getCpf().equals(cpf) && usuario.getSenha().equals(senha)) {
                 return usuario;
+            }
+        }
+        return null;
+    }
+
+    public Funcionario loginFuncionario(String cpf, String senha) {
+        for (Funcionario funcionario : funcionarios) {
+            if (funcionario.getCpf().equals(cpf) && funcionario.getSenha().equals(senha)) {
+                return funcionario;
             }
         }
         return null;
