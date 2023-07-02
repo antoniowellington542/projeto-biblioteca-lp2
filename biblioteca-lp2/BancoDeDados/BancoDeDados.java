@@ -6,11 +6,15 @@ import Contas.Funcionario;
 import Contas.Usuario;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class BancoDeDados {
     private static final String ARQUIVO_USUARIOS = "usuarios.txt";
+    private static final String ARQUIVO_LIVROS = "livros.txt";
 
     public static void cadastrarUsuario(String usuario, String senha, String cpf) {
         try {
@@ -22,6 +26,48 @@ public class BancoDeDados {
         } catch (IOException e) {
             System.out.println("Erro ao cadastrar usuário.");
             e.printStackTrace();
+        }
+    }
+
+    public static void cadastrarLivro(String nome, String autor, Date dataPublicacao, int quantidade) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(ARQUIVO_LIVROS, true));
+            writer.write(nome + "," + autor + "," + dataPublicacao + "," + quantidade);
+            writer.newLine();
+            writer.close();
+            System.out.println("Livro cadastrado com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao cadastrar Livro.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void removerLivro(String nomeLivro) {
+        try {
+            File arquivoTemporario = new File(ARQUIVO_LIVROS);
+            BufferedReader leitor = new BufferedReader(new FileReader(ARQUIVO_LIVROS));
+            BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoTemporario));
+
+            String linha;
+
+            while ((linha = leitor.readLine()) != null) {
+                String[] partes = linha.split(",");
+                String nome = partes[0].trim();
+                if (!nome.equalsIgnoreCase(nomeLivro)) {
+                    escritor.write(linha);
+                    escritor.newLine();
+                }
+            }
+
+            leitor.close();
+            escritor.close();
+
+            File arquivoOriginal = new File(ARQUIVO_LIVROS);
+            arquivoTemporario.renameTo(arquivoOriginal);
+
+            System.out.println("Linha removida com sucesso.");
+        } catch (IOException e) {
+            System.out.println("Erro ao remover a linha: " + e.getMessage());
         }
     }
 

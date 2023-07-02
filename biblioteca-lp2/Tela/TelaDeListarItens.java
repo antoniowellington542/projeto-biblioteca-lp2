@@ -25,7 +25,7 @@ public class TelaDeListarItens extends JPanel {
 
         tableModel = new CustomTableModel(new Object[]{"Id", "Nome", "Autor", "Quantidade"}, 0);
 
-       this.listarLivros();
+        this.listarLivros();
 
         JTable tabelaPendencias = new JTable(tableModel);
         tabelaPendencias.setFillsViewportHeight(true);
@@ -103,7 +103,7 @@ public class TelaDeListarItens extends JPanel {
         }
     }
 
-    private void listarLivros () {
+    private void listarLivros() {
         ArrayList<Livro> livros = biblioteca.getTodosLivrosDoEstoque();
 
         for (Livro livro : livros) {
@@ -119,7 +119,7 @@ public class TelaDeListarItens extends JPanel {
         cardLayout.show(panel, "telaPrincipal");
     }
 
-    private void adicionarItem(String id, String nome, String autor, int quantidade) {
+    private void adicionarItem(Long id, String nome, String autor, int quantidade) {
         Object[] rowData = {id, nome, autor, quantidade};
         tableModel.addRow(rowData);
     }

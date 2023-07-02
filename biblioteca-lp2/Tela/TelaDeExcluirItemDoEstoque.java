@@ -1,8 +1,14 @@
 package Tela;
 
+import BancoDeDados.BancoDeDados;
+import Biblioteca.Biblioteca;
+import Item.Item;
+import Item.Livro;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TelaDeExcluirItemDoEstoque extends JPanel {
@@ -10,7 +16,7 @@ public class TelaDeExcluirItemDoEstoque extends JPanel {
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
 
-    public TelaDeExcluirItemDoEstoque () {
+    public TelaDeExcluirItemDoEstoque() {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
@@ -47,6 +53,22 @@ public class TelaDeExcluirItemDoEstoque extends JPanel {
     }
 
     private void excluirItem(String nome) {
-
+        try {
+            ArrayList<Item> livros = Biblioteca.biblioteca.estoque.getItemsPorNome(nome);
+            if (livros.size() > 1) {
+                //TODO ver se pode excluir mais de um
+                dialogo.mostrarMensagemDeAlerta("Erro: Há mais de um livro para ser removido");
+                System.out.println("Erro: Há mais de um livro para ser removido");
+            } else if (livros.size() == 1) {
+                BancoDeDados.removerLivro(nome);
+                Biblioteca.biblioteca.estoque.excluirItemPorId(livros.get(0).getId());
+            } else {
+                dialogo.mostrarMensagemDeAlerta("Livro não encontrado no estoque");
+                System.out.println("Livro não encontrado no estoque");
+            }
+        } catch (Exception e) {
+            dialogo.mostrarMensagemDeAlerta("Erro não foi possível remover o livro do estoque");
+            System.out.println("Erro não foi possível remover o livro do estoque");
+        }
     }
 }
