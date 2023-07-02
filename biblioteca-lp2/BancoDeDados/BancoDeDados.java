@@ -26,7 +26,8 @@ public class BancoDeDados {
     }
 
     public static void carregarUsuarios() {
-        Biblioteca.biblioteca.funcionarios.add(new Funcionario("admin", "admin", "admin", true));
+        Biblioteca biblioteca = Biblioteca.getBiblioteca();
+        biblioteca.funcionarios.add(new Funcionario("admin", "admin", "admin", true));
         String nomeArquivo = "usuarios.txt"; // Nome do arquivo a ser lido
         try {
             File arquivo = new File(nomeArquivo);

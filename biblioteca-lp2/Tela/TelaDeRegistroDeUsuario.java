@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class TelaDeRegistroDeUsuario extends JPanel {
+    private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
+    private final Dialogo dialogo = new Dialogo();
+    private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     public TelaDeRegistroDeUsuario() {
         setLayout(new GridBagLayout());
 
@@ -73,13 +76,13 @@ public class TelaDeRegistroDeUsuario extends JPanel {
             if (funcionario == null && usuario == null) {
                 BancoDeDados.cadastrarUsuario(nome, senha, cpf);
                 Biblioteca.biblioteca.adicionarUsuario(nome, senha, cpf);
-                JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.WARNING_MESSAGE);
-                GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "login");
+                dialogo.mostrarMensagemDeInformacao("Usuário cadastrado com sucesso!");
+                cardLayout.show(panel, "login");
             } else {
-                JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário, CPF já cadastrado", "Alerta", JOptionPane.WARNING_MESSAGE);
+                dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar usuário, CPF já cadastrado");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário, dados incompletos", "Alerta", JOptionPane.WARNING_MESSAGE);
+            dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar usuário, dados incompletos");
             System.out.println("Erro ao cadastrar usuário, dados incompletos");
         }
     }

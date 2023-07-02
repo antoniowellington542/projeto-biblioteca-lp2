@@ -1,18 +1,26 @@
 package Estoque;
 
 import Item.Item;
-
+import Item.Livro;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Optional;
 
 public class Estoque {
-    private static ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<Item>();
+    private ArrayList<Livro> livros = new ArrayList<Livro>();
+
+    public ArrayList<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(ArrayList<Livro> livros) {
+        this.livros.addAll(livros);
+    }
 
     public Item getItemPorId (String id) {
         Item itemEncontrado = null;
 
-        for (Item item : Estoque.items) {
+        for (Item item : items) {
             if (item.getId().equals(id)) {
                 itemEncontrado = item;
                 break;
@@ -22,7 +30,7 @@ public class Estoque {
         return itemEncontrado;
     }
 
-    public static ArrayList<Item> getItemPorNome(String nome) {
+    public ArrayList<Item> getItemPorNome(String nome) {
         //O nome pode ser só o começo
         ArrayList<Item> itensCorrespondentes = new ArrayList<>();
 
@@ -37,14 +45,14 @@ public class Estoque {
 
 
     public void adicionarItems (ArrayList<Item> items) {
-        Estoque.items.addAll(items);
+        this.items.addAll(items);
     }
 
     public void excluirItemPorId (String id) {
         Item itemExiste = this.getItemPorId(id);
 
         if (itemExiste != null) {
-            Estoque.items.remove(itemExiste);
+            this.items.remove(itemExiste);
             System.out.println("Item excluido com sucesso!");
         } else {
             System.out.println("Item nao encontrado no estoque");
@@ -58,7 +66,7 @@ public class Estoque {
             Item itemExiste = this.getItemPorId(id);
 
             if (itemExiste != null) {
-                Iterator<Item> iterator = Estoque.items.iterator();
+                Iterator<Item> iterator = this.items.iterator();
                 while (iterator.hasNext()) {
                     Item item = iterator.next();
                     if (item.getId().equals(id)) {
@@ -78,7 +86,7 @@ public class Estoque {
         Item itemExiste = this.getItemPorId(id);
 
         if (itemExiste != null) {
-            for (Item item : Estoque.items) {
+            for (Item item : this.items) {
                 if (item.getId().equals(id)) {
                     int novaQuantidade = item.getQuantidade() + quantidade;
                     item.setQuantidade(novaQuantidade);
