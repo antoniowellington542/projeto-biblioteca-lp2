@@ -10,7 +10,7 @@ public class Item {
     private int quantidade;
 
     public Item(String nome, int quantidade) {
-        this.id = new Long(Biblioteca.biblioteca.estoque.items.size());
+        this.id = new Long(Biblioteca.biblioteca.estoque.items.size() + 1);
         this.nome = nome;
         this.quantidade = quantidade;
     }
