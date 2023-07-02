@@ -2,11 +2,12 @@ package Estoque;
 
 import Item.Item;
 import Item.Livro;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Estoque {
-    private ArrayList<Item> items = new ArrayList<Item>();
+    public ArrayList<Item> items = new ArrayList<Item>();
     private ArrayList<Livro> livros = new ArrayList<Livro>();
 
     public ArrayList<Livro> getLivros() {
@@ -17,7 +18,9 @@ public class Estoque {
         this.livros.addAll(livros);
     }
 
-    public Item getItemPorId (String id) {
+    ;
+
+    public Item getItemPorId(Long id) {
         Item itemEncontrado = null;
 
         for (Item item : items) {
@@ -30,7 +33,7 @@ public class Estoque {
         return itemEncontrado;
     }
 
-    public ArrayList<Item> getItemPorNome(String nome) {
+    public ArrayList<Item> getItemsPorNome(String nome) {
         //O nome pode ser só o começo
         ArrayList<Item> itensCorrespondentes = new ArrayList<>();
 
@@ -39,16 +42,15 @@ public class Estoque {
                 itensCorrespondentes.add(item);
             }
         }
-        
+
         return itensCorrespondentes;
     }
 
-
-    public void adicionarItems (ArrayList<Item> items) {
+    public void adicionarItems(ArrayList<Item> items) {
         this.items.addAll(items);
     }
 
-    public void excluirItemPorId (String id) {
+    public void excluirItemPorId(Long id) {
         Item itemExiste = this.getItemPorId(id);
 
         if (itemExiste != null) {
@@ -59,7 +61,7 @@ public class Estoque {
         }
     }
 
-    public void diminuirEstoque (String id, int quantidade) {
+    public void diminuirEstoque(Long id, int quantidade) {
         boolean possoDiminuirEstoque = this.possoTirarDoEstoque(id, quantidade);
 
         if (possoDiminuirEstoque) {
@@ -82,7 +84,7 @@ public class Estoque {
         }
     }
 
-    public void adicionarEstoque (String id, int quantidade) {
+    public void adicionarEstoque(Long id, int quantidade) {
         Item itemExiste = this.getItemPorId(id);
 
         if (itemExiste != null) {
@@ -100,9 +102,13 @@ public class Estoque {
         }
     }
 
-    private boolean possoTirarDoEstoque (String id, int quantidade) {
+    private boolean possoTirarDoEstoque(Long id, int quantidade) {
         Item item = this.getItemPorId(id);
 
         return item.getQuantidade() >= quantidade;
+    }
+
+    public void adicionarNovoLivro(Livro livro) {
+        items.add(livro);
     }
 }

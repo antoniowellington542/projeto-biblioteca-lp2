@@ -1,19 +1,21 @@
 package Item;
 
+import Biblioteca.Biblioteca;
+import Estoque.Estoque;
 import Utilidades.UtilitarioDeData;
 
 public class Item {
     private String nome;
-    private String id;
+    private Long id;
     private int quantidade;
 
-    public Item (String nome, int quantidade) {
-        this.id = String.valueOf(new UtilitarioDeData().getDataAtualEmMS());
+    public Item(String nome, int quantidade) {
+        this.id = new Long(Biblioteca.biblioteca.estoque.items.size() + 1);
         this.nome = nome;
         this.quantidade = quantidade;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

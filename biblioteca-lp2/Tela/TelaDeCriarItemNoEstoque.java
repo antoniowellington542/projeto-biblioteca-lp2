@@ -1,16 +1,26 @@
 package Tela;
 
+import BancoDeDados.BancoDeDados;
+import Biblioteca.Biblioteca;
+import Contas.Funcionario;
+import Contas.Usuario;
+import Estoque.Estoque;
+import Item.Item;
+import Item.Livro;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TelaDeCriarItemNoEstoque extends JPanel {
     private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
-    public TelaDeCriarItemNoEstoque () {
+
+    public TelaDeCriarItemNoEstoque() {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
@@ -79,6 +89,20 @@ public class TelaDeCriarItemNoEstoque extends JPanel {
     }
 
     private void criarItem(String nome, String autor, Date dataPublicacao, int quantidade) {
+        if (!nome.isEmpty() && !autor.isEmpty() && dataPublicacao != null && quantidade > 0) {
+            ArrayList<Item> itemsCorrespondentes = Biblioteca.biblioteca.estoque.getItemsPorNome(nome);
+            if (itemsCorrespondentes.size() > 0) {
+                dialogo.mostrarMensagemDeAlerta("Erro: Um livro com esse nome já existe no estoque");
+                System.out.println("Erro: Um livro com esse nome já existe no estoque");
+            } else {
+                BancoDeDados.cadastrarLivro(nome, autor, dataPublicacao, quantidade);
+                Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataPublicacao, quantidade));
+                dialogo.mostrarMensagemDeInformacao("Livro cadastrado com sucesso!");
+            }
+        } else {
+            dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar Livro, dados incompletos");
+            System.out.println("Erro ao cadastrar Livro, dados incompletos");
+        }
 
     }
 }
