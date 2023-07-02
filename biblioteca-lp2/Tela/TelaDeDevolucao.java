@@ -54,11 +54,14 @@ public class TelaDeDevolucao extends JPanel {
     }
 
     private void devolver(String cpf, String emprestimoId) {
-        for(Emprestimo emprestimo : Biblioteca.biblioteca.emprestimos.getEmprestimos(cpf))
+        
+        Biblioteca lib = Biblioteca.getBiblioteca();
+        
+        for(Emprestimo emprestimo : lib.emprestimos.getEmprestimos(cpf))
         {
             if(emprestimo.id == emprestimoId)
             {
-                Biblioteca.bilioteca.excluirEmprestimo(cpf,emprestimo.itemId);
+                lib.excluirEmprestimo(cpf,emprestimo.itemId);
                 dialogo.mostrarMensagemDeInformacao("Devolução realizada com sucesso!");
                 return;
             }          
