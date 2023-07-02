@@ -1,5 +1,8 @@
 package Tela;
 
+import Biblioteca.Biblioteca;
+import Emprestimo.Emprestimo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -57,11 +60,11 @@ public class TelaDeDevolucao extends JPanel {
         
         Biblioteca lib = Biblioteca.getBiblioteca();
         
-        for(Emprestimo emprestimo : lib.emprestimos.getEmprestimos(cpf))
+        for(Emprestimo emprestimo : lib.getEmprestimos(cpf))
         {
-            if(emprestimo.id == emprestimoId)
+            if(emprestimo.getId().equals(emprestimoId))
             {
-                lib.excluirEmprestimo(cpf,emprestimo.itemId);
+                lib.excluirEmprestimo(cpf,emprestimo.getItemId());
                 dialogo.mostrarMensagemDeInformacao("Devolução realizada com sucesso!");
                 return;
             }          

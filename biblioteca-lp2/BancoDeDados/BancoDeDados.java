@@ -4,8 +4,11 @@ package BancoDeDados;
 import Biblioteca.Biblioteca;
 import Contas.Funcionario;
 import Contas.Usuario;
+import Item.Livro;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,8 +97,38 @@ public class BancoDeDados {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Arquivo de usuários não encontrado.");
+        } catch (Exception e) {
+            System.out.println("Não foi possível carregar os usuários");
+        }
+    }
+
+    public static void carregarLivros() {
+        Biblioteca biblioteca = Biblioteca.getBiblioteca();
+        String nomeArquivo = "livros.txt"; // Nome do arquivo a ser lido
+        try {
+            File arquivo = new File(nomeArquivo);
+            Scanner scanner = new Scanner(arquivo);
+
+            while (scanner.hasNextLine()) {
+                String linha = scanner.nextLine();
+                String[] partes = linha.split(",");
+
+                if (partes.length == 4) {
+                    String nome = partes[0].trim();
+                    String autor = partes[1].trim();
+                    String data = partes[2].trim();
+                    String quantidade = partes[3].trim();
+                    DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dataReal = formato.parse(data);
+                    Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataReal, new Integer(quantidade)));
+                    System.out.println("livro adicionado");
+                } else {
+                    System.out.println("Livro não pode ser carregado na linha: " + linha);
+                }
+            }
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println("Não foi possível carregar os livros");
         }
     }
 
