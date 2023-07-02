@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class TelaDeLogin extends JPanel {
+    private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
+    private final Dialogo dialogo = new Dialogo();
+    private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     public TelaDeLogin() {
         setLayout(new GridBagLayout());
 
@@ -56,16 +59,15 @@ public class TelaDeLogin extends JPanel {
         Funcionario funcionario = Biblioteca.biblioteca.loginFuncionario(cpf, password);
         //TODO quando existir telas diferentes para usuario e funcionario, mudar o redirecionamento abaixo
         if (usuario != null) {
-            GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "telaPrincipal");
+            cardLayout.show(panel, "telaPrincipal");
         } else if (funcionario != null) {
-            GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "telaPrincipal");
+            cardLayout.show(panel, "telaPrincipal");
         } else {
-            JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Alerta", JOptionPane.WARNING_MESSAGE);
+            dialogo.mostrarMensagemDeInformacao("Usuário não encontrado");
             System.out.println("Usuário não encontrado");
         }
     }
 
     private void registrar(ActionEvent e) {
-        GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout().show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "registroDeUsuario");
-    }
+        cardLayout.show(panel, "registroDeUsuario");    }
 }

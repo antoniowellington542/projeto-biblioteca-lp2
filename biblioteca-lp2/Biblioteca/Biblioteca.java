@@ -4,16 +4,25 @@ import Emprestimo.Emprestimo;
 import Contas.Usuario;
 import Contas.Funcionario;
 import Estoque.Estoque;
-import Item.Item;
+import Item.Livro;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Biblioteca {
     public ArrayList<Usuario> usuarios = new ArrayList<>();
     public ArrayList<Funcionario> funcionarios = new ArrayList<>();
     public ArrayList<Emprestimo> emprestimos = new ArrayList<>();
-    public Estoque estoque;
-    public static Biblioteca biblioteca = new Biblioteca();
+    public Estoque estoque = new Estoque();
+    public static Biblioteca biblioteca;
+
+    public static Biblioteca getBiblioteca() {
+        if (biblioteca == null) {
+            biblioteca = new Biblioteca();
+        }
+
+        return biblioteca;
+    }
 
     public Usuario buscaUsuario(String cpf) {
         for (Usuario usuario : usuarios) {
@@ -94,5 +103,21 @@ public class Biblioteca {
             }
         }
         return null;
+    }
+
+    public ArrayList<Livro> getTodosLivrosDoEstoque () {
+        return estoque.getLivros();
+    }
+
+    public Livro getLivroPeloNome (String nome) {
+        Livro livroBuscado = null;
+
+        for (Livro l : estoque.getLivros()) {
+            if (l.getNome().equals(nome)) {
+                livroBuscado = new Livro(l.getNome(), l.getAutor(), l.getDataPublicacao(), l.getQuantidade());
+            }
+        }
+
+        return livroBuscado;
     }
 }
