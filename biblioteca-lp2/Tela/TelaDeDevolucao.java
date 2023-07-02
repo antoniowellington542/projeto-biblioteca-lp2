@@ -54,6 +54,18 @@ public class TelaDeDevolucao extends JPanel {
     }
 
     private void devolver(String cpf, String emprestimoId) {
+        for(Emprestimo emprestimo : Biblioteca.biblioteca.emprestimos.getEmprestimos(cpf))
+        {
+            if(emprestimo.id == emprestimoId)
+            {
+                Biblioteca.bilioteca.excluirEmprestimo(cpf,emprestimo.itemId);
+                dialogo.mostrarMensagemDeInformacao("Devolução realizada com sucesso!");
+                return;
+            }          
+        } 
+        dialogo.mostrarMensagemDeAlerta("Erro: esse item já foi devolvido");
+        System.out.println("Erro: esse item já foi devolvido");
+        
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
