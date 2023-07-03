@@ -4,6 +4,7 @@ package BancoDeDados;
 import Biblioteca.Biblioteca;
 import Contas.Funcionario;
 import Contas.Usuario;
+import Emprestimo.Emprestimo;
 import Item.Livro;
 
 import java.io.*;
@@ -18,6 +19,8 @@ import java.io.FileNotFoundException;
 public class BancoDeDados {
     private static final String ARQUIVO_USUARIOS = "usuarios.txt";
     private static final String ARQUIVO_LIVROS = "livros.txt";
+
+    private static final String ARQUIVO_EMPRESTIMOS = "emprestimos.txt";
 
     public static void cadastrarUsuario(String usuario, String senha, String cpf) {
         try {
@@ -77,7 +80,7 @@ public class BancoDeDados {
     public static void carregarUsuarios() {
         Biblioteca biblioteca = Biblioteca.getBiblioteca();
         biblioteca.funcionarios.add(new Funcionario("admin", "admin", "admin", true));
-        String nomeArquivo = "usuarios.txt"; // Nome do arquivo a ser lido
+        String nomeArquivo = ARQUIVO_USUARIOS; // Nome do arquivo a ser lido
         try {
             File arquivo = new File(nomeArquivo);
             Scanner scanner = new Scanner(arquivo);
@@ -104,7 +107,7 @@ public class BancoDeDados {
 
     public static void carregarLivros() {
         Biblioteca biblioteca = Biblioteca.getBiblioteca();
-        String nomeArquivo = "livros.txt"; // Nome do arquivo a ser lido
+        String nomeArquivo = ARQUIVO_LIVROS; // Nome do arquivo a ser lido
         try {
             File arquivo = new File(nomeArquivo);
             Scanner scanner = new Scanner(arquivo);
@@ -129,6 +132,48 @@ public class BancoDeDados {
             scanner.close();
         } catch (Exception e) {
             System.out.println("Não foi possível carregar os livros");
+        }
+    }
+
+    public static void carregarEmprestimos() {
+        Biblioteca biblioteca = Biblioteca.getBiblioteca();
+        String nomeArquivo = ARQUIVO_EMPRESTIMOS; // Nome do arquivo a ser lido
+        try {
+            File arquivo = new File(nomeArquivo);
+            Scanner scanner = new Scanner(arquivo);
+
+            while (scanner.hasNextLine()) {
+                String linha = scanner.nextLine();
+                String[] partes = linha.split(",");
+
+                if (partes.length == 3) {
+                    String CPF = partes[0].trim();
+                    String livroId = partes[1].trim();
+                    String data = partes[2].trim();
+                    DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dataReal = formato.parse(data);
+                    Biblioteca.biblioteca.emprestimos.add(new Emprestimo(CPF, livroId, dataReal));
+                    System.out.println("Empréstimo adicionado");
+                } else {
+                    System.out.println("Empréstimo não pode ser carregado na linha: " + linha);
+                }
+            }
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println("Não foi possível carregar os empréstimos");
+        }
+    }
+
+    public static void cadastrarEmprestimo(String CPF, Long livroId, String data) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(ARQUIVO_EMPRESTIMOS, true));
+            writer.write(CPF + "," + livroId + "," + data);
+            writer.newLine();
+            writer.close();
+            System.out.println("Empréstimo cadastrado com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao cadastrar Empréstimo.");
+            e.printStackTrace();
         }
     }
 

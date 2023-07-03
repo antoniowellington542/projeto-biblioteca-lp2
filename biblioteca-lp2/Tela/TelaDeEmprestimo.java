@@ -1,17 +1,21 @@
 package Tela;
 
+import BancoDeDados.BancoDeDados;
 import Biblioteca.Biblioteca;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TelaDeEmprestimo extends JPanel {
     private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     private final Biblioteca biblioteca = Biblioteca.getBiblioteca();
-    public TelaDeEmprestimo () {
+
+    public TelaDeEmprestimo() {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
@@ -59,8 +63,21 @@ public class TelaDeEmprestimo extends JPanel {
         cardLayout.show(panel, "telaPrincipal");
     }
 
-    private void emprestar (String cpf, String itemId) {
-        biblioteca.adicionarEmprestimo(cpf, itemId);
-        dialogo.mostrarMensagemDeInformacao("Emprestimo feito com sucesso");
+    private void emprestar(String cpf, String itemId) {
+        try {
+
+
+            biblioteca.adicionarEmprestimo(cpf, itemId);
+
+            Date dataAtual = new Date();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            String dataFormatada = formato.format(dataAtual);
+            BancoDeDados.cadastrarEmprestimo(cpf, new Long(itemId), dataFormatada);
+
+            dialogo.mostrarMensagemDeInformacao("Emprestimo feito com sucesso");
+        } catch (Exception e) {
+            dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar Empréstimo");
+            e.printStackTrace();
+        }
     }
 }
