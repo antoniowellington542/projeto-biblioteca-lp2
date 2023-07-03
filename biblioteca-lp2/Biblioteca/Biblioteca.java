@@ -69,7 +69,7 @@ public class Biblioteca {
     }
 
     public void adicionarEmprestimo(String cpf, String itemId) {
-        Emprestimo emprestimo = new Emprestimo(cpf, itemId, null);
+        Emprestimo emprestimo = new Emprestimo(cpf, itemId);
         emprestimos.add(emprestimo);
     }
 
