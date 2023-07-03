@@ -101,7 +101,7 @@ public class TelaDePendencias extends JPanel {
         return biblioteca.getEmprestimos(cpf);
     }
 
-    private void adicionarItem(String id, String cpf, String itemId, Date dataSolicitacao, Date dataExpiracao) {
+    private void adicionarItem(Long id, String cpf, String itemId, Date dataSolicitacao, Date dataExpiracao) {
         Object[] rowData = {id, cpf, itemId, dataSolicitacao, dataExpiracao};
         tableModel.addRow(rowData);
     }

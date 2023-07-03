@@ -1,24 +1,26 @@
 package Tela;
 
+import BancoDeDados.BancoDeDados;
 import Biblioteca.Biblioteca;
 import Emprestimo.Emprestimo;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.ExecutionException;
 
 public class TelaDeDevolucao extends JPanel {
     private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
 
-    public TelaDeDevolucao () {
+    public TelaDeDevolucao() {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
         constantes.insets = new Insets(5, 5, 5, 5);
 
-        JLabel labelDeCpf = new JLabel("Cpf");
+        JLabel labelDeCpf = new JLabel("CPF");
         constantes.gridx = 0;
         constantes.gridy = 0;
         add(labelDeCpf, constantes);
@@ -27,7 +29,7 @@ public class TelaDeDevolucao extends JPanel {
         constantes.gridx = 1;
         add(campoDeCpf, constantes);
 
-        JLabel labelDeEmprestiId = new JLabel("EmprestimoId");
+        JLabel labelDeEmprestiId = new JLabel("ID Livro");
         constantes.gridx = 0;
         constantes.gridy = 1;
         add(labelDeEmprestiId, constantes);
@@ -45,7 +47,7 @@ public class TelaDeDevolucao extends JPanel {
         botaoDeCriarItem.addActionListener(action -> {
             this.devolver(
                     campoDeCpf.getText(),
-                    campoDeEmprestimoId.getText()
+                    new Long(campoDeEmprestimoId.getText())
             );
         });
         add(botaoDeCriarItem, constantes);
@@ -56,22 +58,24 @@ public class TelaDeDevolucao extends JPanel {
         add(botaoDeLogout, constantes);
     }
 
-    private void devolver(String cpf, String emprestimoId) {
-        
-        Biblioteca lib = Biblioteca.getBiblioteca();
-        
-        for(Emprestimo emprestimo : lib.getEmprestimos(cpf))
-        {
-            if(emprestimo.getId().equals(emprestimoId))
-            {
-                lib.excluirEmprestimo(cpf,emprestimo.getItemId());
-                dialogo.mostrarMensagemDeInformacao("Devolução realizada com sucesso!");
-                return;
-            }          
-        } 
-        dialogo.mostrarMensagemDeAlerta("Erro: esse item já foi devolvido");
-        System.out.println("Erro: esse item já foi devolvido");
-        
+    private void devolver(String cpf, Long livroId) {
+        try {
+            Biblioteca lib = Biblioteca.getBiblioteca();
+
+            for (Emprestimo emprestimo : lib.getEmprestimos(cpf)) {
+                if (emprestimo.getId().equals(livroId)) {
+                    lib.excluirEmprestimo(cpf, emprestimo.getItemId());
+                    BancoDeDados.removerEmprestimo(cpf, livroId);
+                    dialogo.mostrarMensagemDeInformacao("Devolução realizada com sucesso!");
+                    return;
+                }
+            }
+            dialogo.mostrarMensagemDeAlerta("Não foi possível encontrar a devolução");
+            System.out.println("Erro: esse item já foi devolvido");
+        } catch (Exception e) {
+            dialogo.mostrarMensagemDeAlerta("Erro ao realizar devolução");
+            e.printStackTrace();
+        }
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {

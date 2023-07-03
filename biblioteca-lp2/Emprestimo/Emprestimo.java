@@ -1,11 +1,12 @@
 package Emprestimo;
 
+import Biblioteca.Biblioteca;
 import Utilidades.UtilitarioDeData;
 
 import java.util.Date;
 
 public class Emprestimo {
-    private final String id;
+    private final Long id;
     private final String cpf;
     private final String itemId;
     private final Date dataSolicitacao;
@@ -13,16 +14,28 @@ public class Emprestimo {
 
     private static final int tempoMaximoDeEmprestimoEmMeses = 1;
 
-    public Emprestimo(String cpf, String itemId)
-    {
-        this.id = String.valueOf(new UtilitarioDeData().getDataAtualEmMS());
+    public Emprestimo(String cpf, String itemId, Date data) {
+        this.id = new Long(Biblioteca.biblioteca.emprestimos.size() + 1);
         this.cpf = cpf;
         this.itemId = itemId;
-        this.dataSolicitacao = new UtilitarioDeData().getDataAtual();
+        if (data != null) {
+            this.dataSolicitacao = data;
+        } else {
+            this.dataSolicitacao = new UtilitarioDeData().getDataAtual();
+        }
         this.dataExpiracao = new UtilitarioDeData().getDataInc(tempoMaximoDeEmprestimoEmMeses);
     }
 
-    public String getId() {
+    public Emprestimo(String cpf, String itemId) {
+        this.id = new Long(Biblioteca.biblioteca.emprestimos.size() + 1);
+        this.cpf = cpf;
+        this.itemId = itemId;
+        this.dataSolicitacao = new UtilitarioDeData().getDataAtual();
+
+        this.dataExpiracao = new UtilitarioDeData().getDataInc(tempoMaximoDeEmprestimoEmMeses);
+    }
+
+    public Long getId() {
         return id;
     }
 

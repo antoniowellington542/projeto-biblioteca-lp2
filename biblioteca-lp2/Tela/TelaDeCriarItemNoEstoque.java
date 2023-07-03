@@ -89,19 +89,24 @@ public class TelaDeCriarItemNoEstoque extends JPanel {
     }
 
     private void criarItem(String nome, String autor, Date dataPublicacao, int quantidade) {
-        if (!nome.isEmpty() && !autor.isEmpty() && dataPublicacao != null && quantidade > 0) {
-            ArrayList<Item> itemsCorrespondentes = Biblioteca.biblioteca.estoque.getItemsPorNome(nome);
-            if (itemsCorrespondentes.size() > 0) {
-                dialogo.mostrarMensagemDeAlerta("Erro: Um livro com esse nome já existe no estoque");
-                System.out.println("Erro: Um livro com esse nome já existe no estoque");
+        try {
+            if (!nome.isEmpty() && !autor.isEmpty() && dataPublicacao != null && quantidade > 0) {
+                ArrayList<Item> itemsCorrespondentes = Biblioteca.biblioteca.estoque.getItemsPorNome(nome);
+                if (itemsCorrespondentes.size() > 0) {
+                    dialogo.mostrarMensagemDeAlerta("Erro: Um livro com esse nome já existe no estoque");
+                    System.out.println("Erro: Um livro com esse nome já existe no estoque");
+                } else {
+                    BancoDeDados.cadastrarLivro(nome, autor, dataPublicacao, quantidade);
+                    Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataPublicacao, quantidade));
+                    dialogo.mostrarMensagemDeInformacao("Livro cadastrado com sucesso!");
+                }
             } else {
-                BancoDeDados.cadastrarLivro(nome, autor, dataPublicacao, quantidade);
-                Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataPublicacao, quantidade));
-                dialogo.mostrarMensagemDeInformacao("Livro cadastrado com sucesso!");
+                dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar Livro, dados incompletos");
+                System.out.println("Erro ao cadastrar Livro, dados incompletos");
             }
-        } else {
-            dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar Livro, dados incompletos");
-            System.out.println("Erro ao cadastrar Livro, dados incompletos");
+        }catch (Exception e){
+            dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar livro");
+            e.printStackTrace();
         }
 
     }
