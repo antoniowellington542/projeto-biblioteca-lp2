@@ -65,10 +65,7 @@ public class TelaDeEmprestimo extends JPanel {
 
     private void emprestar(String cpf, String itemId) {
         try {
-
-
             biblioteca.adicionarEmprestimo(cpf, itemId);
-
             Date dataAtual = new Date();
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             String dataFormatada = formato.format(dataAtual);

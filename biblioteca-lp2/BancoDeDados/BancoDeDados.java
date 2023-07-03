@@ -177,6 +177,36 @@ public class BancoDeDados {
         }
     }
 
+    public static void removerEmprestimo(String CPF, Long livroId) {
+        try {
+            File arquivoTemporario = new File(ARQUIVO_EMPRESTIMOS);
+            BufferedReader leitor = new BufferedReader(new FileReader(ARQUIVO_EMPRESTIMOS));
+            BufferedWriter escritor = new BufferedWriter(new FileWriter(arquivoTemporario));
+
+            String linha;
+
+            while ((linha = leitor.readLine()) != null) {
+                String[] partes = linha.split(",");
+                String cpfLinha = partes[0].trim();
+                Long livroIdLinha = Long.parseLong(partes[1].trim());
+                if (!cpfLinha.equalsIgnoreCase(CPF) || !livroIdLinha.equals(livroId)) {
+                    escritor.write(linha);
+                    escritor.newLine();
+                }
+            }
+
+            leitor.close();
+            escritor.close();
+
+            File arquivoOriginal = new File(ARQUIVO_EMPRESTIMOS);
+            arquivoTemporario.renameTo(arquivoOriginal);
+
+            System.out.println("Linha removida com sucesso.");
+        } catch (IOException e) {
+            System.out.println("Erro ao remover a linha: " + e.getMessage());
+        }
+    }
+
     public void deletarUsuario(String usuario) {
     }
 }
