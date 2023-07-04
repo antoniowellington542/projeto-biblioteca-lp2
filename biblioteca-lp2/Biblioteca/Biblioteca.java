@@ -1,13 +1,14 @@
 package Biblioteca;
 
+import BancoDeDados.BancoDeDados;
 import Emprestimo.Emprestimo;
 import Contas.Usuario;
 import Contas.Funcionario;
 import Estoque.Estoque;
+import Item.Item;
 import Item.Livro;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Biblioteca {
     public ArrayList<Usuario> usuarios = new ArrayList<>();
@@ -106,7 +107,12 @@ public class Biblioteca {
     }
 
     public ArrayList<Livro> getTodosLivrosDoEstoque () {
+        BancoDeDados.carregarLivros();
         return estoque.getLivros();
+    }
+
+    public ArrayList<Item> getTodosItensDoEstoque () {
+        return estoque.items;
     }
 
     public Livro getLivroPeloNome (String nome) {

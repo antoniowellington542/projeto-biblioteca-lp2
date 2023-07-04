@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -78,14 +80,14 @@ public class TelaDeCriarItemNoEstoque extends JPanel {
         });
         add(botaoDeCriarItem, constantes);
 
-        JButton botaoDeLogout = new JButton("Voltar a tela principal");
-        botaoDeLogout.addActionListener(this::voltarTelaPrincipal);
+        JButton botaoDeVoltarTela = new JButton("Voltar a tela anterior");
+        botaoDeVoltarTela.addActionListener(this::voltarTela);
         constantes.gridy = 5;
-        add(botaoDeLogout, constantes);
+        add(botaoDeVoltarTela, constantes);
     }
 
-    private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+    private void voltarTela(ActionEvent actionEvent) {
+        cardLayout.show(panel, "estoque");
     }
 
     private void criarItem(String nome, String autor, Date dataPublicacao, int quantidade) {
@@ -98,6 +100,7 @@ public class TelaDeCriarItemNoEstoque extends JPanel {
                 } else {
                     BancoDeDados.cadastrarLivro(nome, autor, dataPublicacao, quantidade);
                     Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataPublicacao, quantidade));
+                    BancoDeDados.carregarLivros();
                     dialogo.mostrarMensagemDeInformacao("Livro cadastrado com sucesso!");
                 }
             } else {
