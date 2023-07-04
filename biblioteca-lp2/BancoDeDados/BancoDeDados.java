@@ -6,14 +6,12 @@ import Contas.Funcionario;
 import Contas.Usuario;
 import Emprestimo.Emprestimo;
 import Item.Livro;
+import Utilidades.UtilitarioDeData;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.io.FileNotFoundException;
 
 public class BancoDeDados {
@@ -37,8 +35,11 @@ public class BancoDeDados {
 
     public static void cadastrarLivro(String nome, String autor, Date dataPublicacao, int quantidade) {
         try {
+            UtilitarioDeData utilitarioDeData = new UtilitarioDeData();
+            String dataReal = utilitarioDeData.convertDateFormat(dataPublicacao);
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(ARQUIVO_LIVROS, true));
-            writer.write(nome + "," + autor + "," + dataPublicacao + "," + quantidade);
+            writer.write(nome + "," + autor + "," + dataReal + "," + quantidade);
             writer.newLine();
             writer.close();
             System.out.println("Livro cadastrado com sucesso!");
@@ -107,9 +108,8 @@ public class BancoDeDados {
 
     public static void carregarLivros() {
         Biblioteca biblioteca = Biblioteca.getBiblioteca();
-        String nomeArquivo = ARQUIVO_LIVROS; // Nome do arquivo a ser lido
         try {
-            File arquivo = new File(nomeArquivo);
+            File arquivo = new File(ARQUIVO_LIVROS);
             Scanner scanner = new Scanner(arquivo);
 
             while (scanner.hasNextLine()) {
@@ -123,7 +123,7 @@ public class BancoDeDados {
                     String quantidade = partes[3].trim();
                     DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                     Date dataReal = formato.parse(data);
-                    Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataReal, new Integer(quantidade)));
+                    Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataReal, Integer.parseInt(quantidade)));
                     System.out.println("livro adicionado");
                 } else {
                     System.out.println("Livro não pode ser carregado na linha: " + linha);
@@ -131,6 +131,7 @@ public class BancoDeDados {
             }
             scanner.close();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Não foi possível carregar os livros");
         }
     }

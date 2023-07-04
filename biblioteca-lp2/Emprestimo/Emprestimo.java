@@ -15,7 +15,7 @@ public class Emprestimo {
     private static final int tempoMaximoDeEmprestimoEmMeses = 1;
 
     public Emprestimo(String cpf, String itemId, Date data) {
-        this.id = new Long(Biblioteca.biblioteca.emprestimos.size() + 1);
+        this.id = (long) (Biblioteca.biblioteca.emprestimos.size() + 1);
         this.cpf = cpf;
         this.itemId = itemId;
         if (data != null) {
@@ -27,7 +27,7 @@ public class Emprestimo {
     }
 
     public Emprestimo(String cpf, String itemId) {
-        this.id = new Long(Biblioteca.biblioteca.emprestimos.size() + 1);
+        this.id = (long) (Biblioteca.biblioteca.emprestimos.size() + 1);
         this.cpf = cpf;
         this.itemId = itemId;
         this.dataSolicitacao = new UtilitarioDeData().getDataAtual();

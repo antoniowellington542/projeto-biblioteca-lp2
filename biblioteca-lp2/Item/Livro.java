@@ -1,5 +1,7 @@
 package Item;
 
+import BancoDeDados.BancoDeDados;
+
 import java.util.Date;
 
 public class Livro extends Item {

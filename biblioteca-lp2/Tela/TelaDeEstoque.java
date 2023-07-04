@@ -12,13 +12,9 @@ public class TelaDeEstoque extends JPanel {
         setLayout(new GridLayout(7, 1, 10, 10));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JButton botaoDeEstoque = new JButton("Devolver item ao Estoque");
-        botaoDeEstoque.addActionListener(this::diminuirEstoque);
+        JButton botaoDeEstoque = new JButton("Atualizar item ao Estoque");
+        botaoDeEstoque.addActionListener(this::atualizarItemNoEstoque);
         add(botaoDeEstoque);
-
-        JButton botaoDeEmprestimo = new JButton("Aumentar Estoque de item");
-        botaoDeEmprestimo.addActionListener(this::aumentarEstoque);
-        add(botaoDeEmprestimo);
 
         JButton botaoDeDevolucao = new JButton("Criar item no estoque");
         botaoDeDevolucao.addActionListener(this::criarItemNoEstoque);
@@ -33,16 +29,17 @@ public class TelaDeEstoque extends JPanel {
         add(botaoDeLogout);
     }
 
-    private void diminuirEstoque(ActionEvent actionEvent) {
+    private void atualizarItemNoEstoque(ActionEvent actionEvent) {
+        cardLayout.show(panel, "atualizarItemNoEstoque");
     }
 
-    private void aumentarEstoque(ActionEvent actionEvent) {
-    }
 
     private void criarItemNoEstoque(ActionEvent actionEvent) {
+        cardLayout.show(panel, "criarItemNoEstoque");
     }
 
     private void excluirItemNoEstoque(ActionEvent actionEvent) {
+        cardLayout.show(panel, "excluirItemNoEstoque");
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {

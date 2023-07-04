@@ -47,7 +47,7 @@ public class TelaDeDevolucao extends JPanel {
         botaoDeCriarItem.addActionListener(action -> {
             this.devolver(
                     campoDeCpf.getText(),
-                    new Long(campoDeEmprestimoId.getText())
+                    Long.parseLong(campoDeEmprestimoId.getText())
             );
         });
         add(botaoDeCriarItem, constantes);

@@ -69,7 +69,7 @@ public class TelaDeEmprestimo extends JPanel {
             Date dataAtual = new Date();
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             String dataFormatada = formato.format(dataAtual);
-            BancoDeDados.cadastrarEmprestimo(cpf, new Long(itemId), dataFormatada);
+            BancoDeDados.cadastrarEmprestimo(cpf, Long.parseLong(itemId), dataFormatada);
 
             dialogo.mostrarMensagemDeInformacao("Emprestimo feito com sucesso");
         } catch (Exception e) {

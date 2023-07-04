@@ -42,16 +42,15 @@ public class TelaDeExcluirItemDoEstoque extends JPanel {
         });
         add(botaoDeExcluirItem, constantes);
 
-        JButton botaoDeLogout = new JButton("Voltar a tela principal");
-        botaoDeLogout.addActionListener(this::voltarTelaPrincipal);
+        JButton botaoDeVoltarTela = new JButton("Voltar a tela anterior");
+        botaoDeVoltarTela.addActionListener(this::voltarTela);
         constantes.gridy = 3;
-        add(botaoDeLogout, constantes);
+        add(botaoDeVoltarTela, constantes);
     }
 
-    private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+    private void voltarTela(ActionEvent actionEvent) {
+        cardLayout.show(panel, "estoque");
     }
-
     private void excluirItem(String nome) {
         try {
             ArrayList<Item> livros = Biblioteca.biblioteca.estoque.getItemsPorNome(nome);

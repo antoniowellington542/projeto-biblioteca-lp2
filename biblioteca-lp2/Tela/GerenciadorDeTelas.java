@@ -42,9 +42,11 @@ public class GerenciadorDeTelas {
         JPanel painelDeEstoque = telaDeEstoque();
         JPanel painelDeEmprestimo = telaDeEmprestimo();
         JPanel painelDeDevolucao = telaDeDevolucao();
-        JPanel painelDeBuscarItem = telaDeBuscarItem();
         JPanel painelDeListarItens = telaDeListarItens();
         JPanel painelDePendencias = telaDePendencias();
+        JPanel painelDeCriarItemNoEstoque = telaDeCriarItemNoEstoque();
+        JPanel painelDeExcluirItemNoEstoque = telaDeExcluirItemNoEstoque();
+        JPanel painelDeAtualizarItemNoEstoque = telaDeAtualizarItemNoEstoque();
 
         gerenciadorDePainel.add(painelDeLogin, "login");
         gerenciadorDePainel.add(painelDeRegistroDeUsuario, "registroDeUsuario");
@@ -52,9 +54,11 @@ public class GerenciadorDeTelas {
         gerenciadorDePainel.add(painelDeEstoque, "estoque");
         gerenciadorDePainel.add(painelDeEmprestimo, "emprestimo");
         gerenciadorDePainel.add(painelDeDevolucao, "devolucaoDeItem");
-        gerenciadorDePainel.add(painelDeBuscarItem, "buscaDeItem");
         gerenciadorDePainel.add(painelDeListarItens, "listaDeItens");
         gerenciadorDePainel.add(painelDePendencias, "listaDePendencias");
+        gerenciadorDePainel.add(painelDeCriarItemNoEstoque, "criarItemNoEstoque");
+        gerenciadorDePainel.add(painelDeExcluirItemNoEstoque, "excluirItemNoEstoque");
+        gerenciadorDePainel.add(painelDeAtualizarItemNoEstoque, "atualizarItemNoEstoque");
 
         frame.setContentPane(gerenciadorDePainel);
         frame.setVisible(true);
@@ -83,9 +87,6 @@ public class GerenciadorDeTelas {
     private JPanel telaDeDevolucao () {
         return new TelaDeDevolucao();
     }
-    private JPanel telaDeBuscarItem () {
-        return new TelaDeBuscarItem();
-    }
     private JPanel telaDeListarItens () {
         return new TelaDeListarItens();
     }
@@ -93,5 +94,7 @@ public class GerenciadorDeTelas {
         return new TelaDePendencias();
     }
 
-
+    private JPanel telaDeCriarItemNoEstoque () { return new TelaDeCriarItemNoEstoque(); }
+    private JPanel telaDeExcluirItemNoEstoque () { return new TelaDeExcluirItemDoEstoque(); }
+    private JPanel telaDeAtualizarItemNoEstoque () { return new TelaDeAtualizarQuantidadeDeItemNoEstoque(); }
 }

@@ -1,8 +1,7 @@
 package Tela;
 
 import Biblioteca.Biblioteca;
-import Emprestimo.Emprestimo;
-import Item.Livro;
+import Item.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -104,9 +103,10 @@ public class TelaDeListarItens extends JPanel {
     }
 
     private void listarLivros() {
-        ArrayList<Livro> livros = biblioteca.getTodosLivrosDoEstoque();
+        ArrayList<Item> items = biblioteca.getTodosItensDoEstoque();
 
-        for (Livro livro : livros) {
+        for (Item item : items) {
+            Livro livro = (Livro) item ;
             adicionarItem(livro.getId(), livro.getNome(), livro.getAutor(), livro.getQuantidade());
         }
     }

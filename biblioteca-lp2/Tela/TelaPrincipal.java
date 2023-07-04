@@ -26,9 +26,6 @@ public class TelaPrincipal extends JPanel {
         botaoDeDevolucao.addActionListener(this::devolucao);
         add(botaoDeDevolucao);
 
-        JButton botaoDeBuscarItem = new JButton("Buscar Item");
-        botaoDeBuscarItem.addActionListener(this::buscarItem);
-        add(botaoDeBuscarItem);
 
         JButton botaoDeListarItems = new JButton("Listar Items");
         botaoDeListarItems.addActionListener(this::listarItens);
@@ -53,10 +50,6 @@ public class TelaPrincipal extends JPanel {
 
     private void devolucao (ActionEvent e) {
         cardLayout.show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "devolucaoDeItem");
-    }
-
-    private void buscarItem (ActionEvent e) {
-        cardLayout.show(GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel(), "buscaDeItem");
     }
 
     private void listarItens (ActionEvent e) {
