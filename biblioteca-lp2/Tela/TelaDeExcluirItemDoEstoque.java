@@ -61,6 +61,7 @@ public class TelaDeExcluirItemDoEstoque extends JPanel {
             } else if (livros.size() == 1) {
                 BancoDeDados.removerLivro(nome);
                 Biblioteca.biblioteca.estoque.excluirItemPorId(livros.get(0).getId());
+                dialogo.mostrarMensagemDeAlerta("Livro excluido com sucesso");
             } else {
                 dialogo.mostrarMensagemDeAlerta("Livro não encontrado no estoque");
                 System.out.println("Livro não encontrado no estoque");

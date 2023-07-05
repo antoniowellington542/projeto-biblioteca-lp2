@@ -94,9 +94,11 @@ public class TelaDeListarItens extends JPanel {
 
             this.listarLivros();
         } else {
-            Livro livro = this.buscarLivro(nome);
+            ArrayList<Item> item = this.buscarLivro(nome);
 
             tableModel.setRowCount(0);
+
+            Livro livro = (Livro) item.get(0);
 
             adicionarItem(livro.getId(), livro.getNome(), livro.getAutor(), livro.getQuantidade());
         }
@@ -111,7 +113,7 @@ public class TelaDeListarItens extends JPanel {
         }
     }
 
-    private Livro buscarLivro(String nome) {
+    private ArrayList<Item> buscarLivro(String nome) {
         return biblioteca.getLivroPeloNome(nome);
     }
 

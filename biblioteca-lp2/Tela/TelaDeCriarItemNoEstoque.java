@@ -100,7 +100,6 @@ public class TelaDeCriarItemNoEstoque extends JPanel {
                 } else {
                     BancoDeDados.cadastrarLivro(nome, autor, dataPublicacao, quantidade);
                     Biblioteca.biblioteca.estoque.adicionarNovoLivro(new Livro(nome, autor, dataPublicacao, quantidade));
-                    BancoDeDados.carregarLivros();
                     dialogo.mostrarMensagemDeInformacao("Livro cadastrado com sucesso!");
                 }
             } else {

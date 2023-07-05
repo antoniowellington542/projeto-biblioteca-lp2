@@ -1,4 +1,0 @@
-antonio,antonio,2023-06-01,10
-antonio2,antonio2,2023-06-02,10
-antonio3,antonio3,2023-06-03,10
-antonio6,antonio6,2023-03-07,50

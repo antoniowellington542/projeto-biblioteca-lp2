@@ -115,15 +115,8 @@ public class Biblioteca {
         return estoque.items;
     }
 
-    public Livro getLivroPeloNome (String nome) {
-        Livro livroBuscado = null;
+    public ArrayList<Item> getLivroPeloNome (String nome) {
 
-        for (Livro l : estoque.getLivros()) {
-            if (l.getNome().equals(nome)) {
-                livroBuscado = new Livro(l.getNome(), l.getAutor(), l.getDataPublicacao(), l.getQuantidade());
-            }
-        }
-
-        return livroBuscado;
+        return estoque.getItemsPorNome(nome);
     }
 }
