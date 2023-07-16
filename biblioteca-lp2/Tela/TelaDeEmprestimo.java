@@ -2,6 +2,7 @@ package Tela;
 
 import BancoDeDados.BancoDeDados;
 import Biblioteca.Biblioteca;
+import Item.Item;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,13 +66,18 @@ public class TelaDeEmprestimo extends JPanel {
 
     private void emprestar(String cpf, String itemId) {
         try {
-            biblioteca.adicionarEmprestimo(cpf, itemId);
-            Date dataAtual = new Date();
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            String dataFormatada = formato.format(dataAtual);
-            BancoDeDados.cadastrarEmprestimo(cpf, Long.parseLong(itemId), dataFormatada);
-
-            dialogo.mostrarMensagemDeInformacao("Emprestimo feito com sucesso");
+            Item livro = Biblioteca.biblioteca.estoque.getItemPorId(new Long(itemId));
+            if (livro.getQuantidade() > 0) {
+                biblioteca.adicionarEmprestimo(cpf, itemId);
+                Date dataAtual = new Date();
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                String dataFormatada = formato.format(dataAtual);
+                BancoDeDados.cadastrarEmprestimo(cpf, Long.parseLong(itemId), dataFormatada);
+                BancoDeDados.MudarQuantidadeLivro(new Long(itemId), 1, false);
+                dialogo.mostrarMensagemDeInformacao("Emprestimo feito com sucesso");
+            } else {
+                dialogo.mostrarMensagemDeInformacao("Não foi possível realizar o empréstimo, sem estoque.");
+            }
         } catch (Exception e) {
             dialogo.mostrarMensagemDeAlerta("Erro ao cadastrar Empréstimo");
             e.printStackTrace();

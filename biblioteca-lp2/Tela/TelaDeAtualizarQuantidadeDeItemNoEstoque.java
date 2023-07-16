@@ -1,5 +1,7 @@
 package Tela;
 
+import BancoDeDados.BancoDeDados;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -50,7 +52,7 @@ public class TelaDeAtualizarQuantidadeDeItemNoEstoque extends JPanel {
         JButton botaoDeDiminuir = new JButton();
         botaoDeDiminuir.setText("Diminuir");
         constantes.gridy = 3;
-        botaoDeAumentar.addActionListener(action -> {
+        botaoDeDiminuir.addActionListener(action -> {
             this.diminuir(
                     campoDeIdDoItem.getText(),
                     Integer.parseInt(campoDeQuantidade.getText())
@@ -69,11 +71,21 @@ public class TelaDeAtualizarQuantidadeDeItemNoEstoque extends JPanel {
         cardLayout.show(panel, "estoque");
     }
 
-    private void aumentar (String itemId, int quantidade) {
-
+    private void aumentar(String itemId, int quantidade) {
+        try {
+            BancoDeDados.MudarQuantidadeLivro(new Long(itemId), quantidade, true);
+        } catch (Exception e) {
+            dialogo.mostrarMensagemDeAlerta("Erro ao atualizar quantidade.");
+            e.printStackTrace();
+        }
     }
 
-    private void diminuir (String itemId, int quantidade) {
-
+    private void diminuir(String itemId, int quantidade) {
+        try {
+            BancoDeDados.MudarQuantidadeLivro(new Long(itemId), quantidade, false);
+        } catch (Exception e) {
+            dialogo.mostrarMensagemDeAlerta("Erro ao atualizar quantidade.");
+            e.printStackTrace();
+        }
     }
 }

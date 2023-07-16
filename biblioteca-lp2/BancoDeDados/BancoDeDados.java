@@ -5,6 +5,7 @@ import Biblioteca.Biblioteca;
 import Contas.Funcionario;
 import Contas.Usuario;
 import Emprestimo.Emprestimo;
+import Item.Item;
 import Item.Livro;
 import Utilidades.UtilitarioDeData;
 
@@ -43,6 +44,48 @@ public class BancoDeDados {
             writer.newLine();
             writer.close();
             System.out.println("Livro cadastrado com sucesso!");
+        } catch (IOException e) {
+            System.out.println("Erro ao cadastrar Livro.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void MudarQuantidadeLivro(Long livroId, Integer quantidadeMudar, boolean aumentar) {
+        try {
+            Item livro = Biblioteca.biblioteca.estoque.getItemPorId(livroId);
+            if(livro.getId() != null) {
+                File arquivoTexto = new File(ARQUIVO_LIVROS);
+                BufferedReader br = new BufferedReader(new FileReader(arquivoTexto));
+                StringBuilder sb = new StringBuilder();
+                String linha;
+                while ((linha = br.readLine()) != null) {
+                    String[] partes = linha.split(",");
+
+                    if (partes.length >= 4 && partes[0].equals(livro.getNome())) {
+                        int quantidade = Integer.parseInt(partes[3].trim());
+
+                        if (aumentar) {
+                            quantidade+=quantidadeMudar;
+                        } else {
+                            quantidade = Math.max(0, quantidade - (quantidadeMudar));
+                        }
+
+                        partes[3] = String.valueOf(quantidade);
+                    }
+
+                    sb.append(String.join(",", partes)).append(System.lineSeparator());
+                }
+
+                br.close();
+
+                BufferedWriter bw = new BufferedWriter(new FileWriter(arquivoTexto));
+                bw.write(sb.toString());
+                bw.close();
+
+                System.out.println("Quantidade atualizada com sucesso.");
+            }else{
+                System.out.println("Erro ao cadastrar Livro.");
+            }
         } catch (IOException e) {
             System.out.println("Erro ao cadastrar Livro.");
             e.printStackTrace();

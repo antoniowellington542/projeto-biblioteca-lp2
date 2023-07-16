@@ -35,14 +35,4 @@ public class Usuario implements Conta {
     public String getSenha() {
         return senha;
     }
-
-    @Override
-    public ArrayList<Item> pesquisaLivro(String nomeLivro){
-        ArrayList<Item> livros = this.biblioteca.estoque.getItemsPorNome(nomeLivro);
-        if (livros.isEmpty()) {
-            System.out.println("Nenhum item correspondente encontrado.");
-        } 
-        return livros;
-    };
-
 }
