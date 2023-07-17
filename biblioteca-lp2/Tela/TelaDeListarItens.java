@@ -140,6 +140,8 @@ public class TelaDeListarItens extends JPanel {
             itemMap.put("quantidade", quantidade);
 
             // TODO chamar tela de empréstimo passando o hashmap
+            GerenciadorDeTelas.telaDeEmprestimo().receberInfoItem(itemMap);
+            
         } else {
             // Nenhum item selecionado
         }
