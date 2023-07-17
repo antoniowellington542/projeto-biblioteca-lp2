@@ -16,8 +16,8 @@ public class TelaDeEmprestimo extends JPanel {
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     private final Biblioteca biblioteca = Biblioteca.getBiblioteca();
-    private static HashMap<String, Object> itemMapEmprestimo = new HashMap<>();
     private static JTextField campoDeItemId = new JTextField(20);
+    private static JTextField campoDeNome = new JTextField(20);
 
     public TelaDeEmprestimo(HashMap<String, Object> itemMap) {
         setLayout(new GridBagLayout());
@@ -47,10 +47,25 @@ public class TelaDeEmprestimo extends JPanel {
         constantes.gridx = 1;
         add(campoDeItemId, constantes);
 
+        JLabel labelDeNome = new JLabel("Nome");
+        constantes.gridx = 0;
+        constantes.gridy = 2;
+        add(labelDeNome, constantes);
+
+
+        campoDeNome.setEnabled(false);
+        if(itemMap!=null) {
+            if (itemMap.get("nome") != null) {
+                campoDeNome.setText(itemMap.get("nome").toString());
+            }
+        }
+        constantes.gridx = 1;
+        add(campoDeNome, constantes);
+
         JButton botaoDeEmprestar = new JButton();
         botaoDeEmprestar.setText("Emprestar");
         constantes.gridx = 0;
-        constantes.gridy = 2;
+        constantes.gridy = 3;
         constantes.anchor = GridBagConstraints.CENTER;
         constantes.gridwidth = 2;
         botaoDeEmprestar.addActionListener(action -> {
@@ -63,7 +78,7 @@ public class TelaDeEmprestimo extends JPanel {
 
         JButton botaoDeLogout = new JButton("Voltar a tela principal");
         botaoDeLogout.addActionListener(this::voltarTelaPrincipal);
-        constantes.gridy = 3;
+        constantes.gridy = 4;
         add(botaoDeLogout, constantes);
     }
 
@@ -71,6 +86,11 @@ public class TelaDeEmprestimo extends JPanel {
         if(itemMap!=null) {
             if (itemMap.get("id") != null) {
                 campoDeItemId.setText(itemMap.get("id").toString());
+            }
+        }
+        if(itemMap!=null) {
+            if (itemMap.get("nome") != null) {
+                campoDeNome.setText(itemMap.get("nome").toString());
             }
         }
     }
