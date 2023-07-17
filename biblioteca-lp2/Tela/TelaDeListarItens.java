@@ -141,6 +141,7 @@ public class TelaDeListarItens extends JPanel {
 
             // TODO chamar tela de empréstimo passando o hashmap
             GerenciadorDeTelas.telaDeEmprestimo().receberInfoItem(itemMap);
+            cardLayout.show(panel, "emprestimo");
             
         } else {
             // Nenhum item selecionado
