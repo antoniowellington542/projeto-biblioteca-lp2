@@ -15,6 +15,7 @@ public class TelaDeEmprestimo extends JPanel {
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     private final Biblioteca biblioteca = Biblioteca.getBiblioteca();
+    private final HashMap<String, Object> infoItem = new HashMap<>(); 
 
     public TelaDeEmprestimo() {
         setLayout(new GridBagLayout());
@@ -58,6 +59,12 @@ public class TelaDeEmprestimo extends JPanel {
         botaoDeLogout.addActionListener(this::voltarTelaPrincipal);
         constantes.gridy = 3;
         add(botaoDeLogout, constantes);
+    }
+
+    public receberInfoItem(HashMap<String, Object> infoItem)
+    {
+        this.infoItem = infoItem;
+        campoDeItemId.setText( infoItem.get("id"));
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
