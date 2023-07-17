@@ -47,10 +47,24 @@ public class TelaDeEmprestimo extends JPanel {
         constantes.gridx = 1;
         add(campoDeItemId, constantes);
 
+        JLabel labelDeNome = new JLabel("Nome");
+        constantes.gridx = 0;
+        constantes.gridy = 2;
+        add(labelDeNome, constantes);
+
+        JTextField campoDeNome = new JTextField(20);
+        if(itemMap!=null) {
+            if (itemMap.get("nome") != null) {
+                campoDeItemId.setText(itemMap.get("nome").toString());
+            }
+        }
+        constantes.gridx = 1;
+        add(campoDeNome, constantes);
+
         JButton botaoDeEmprestar = new JButton();
         botaoDeEmprestar.setText("Emprestar");
         constantes.gridx = 0;
-        constantes.gridy = 2;
+        constantes.gridy = 3;
         constantes.anchor = GridBagConstraints.CENTER;
         constantes.gridwidth = 2;
         botaoDeEmprestar.addActionListener(action -> {
@@ -63,7 +77,7 @@ public class TelaDeEmprestimo extends JPanel {
 
         JButton botaoDeLogout = new JButton("Voltar a tela principal");
         botaoDeLogout.addActionListener(this::voltarTelaPrincipal);
-        constantes.gridy = 3;
+        constantes.gridy = 4;
         add(botaoDeLogout, constantes);
     }
 
