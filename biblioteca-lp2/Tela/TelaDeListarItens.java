@@ -7,7 +7,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TelaDeListarItens extends JPanel {
     private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
@@ -17,6 +19,8 @@ public class TelaDeListarItens extends JPanel {
     private final JLabel labelDeNome;
     private final JTextField campoDeNome;
     private final JButton botaoDeBuscarLivro;
+    private final JButton botaoEnviarItem;
+    private final JTable tabelaPendencias;
     private final Biblioteca biblioteca = Biblioteca.getBiblioteca();
 
     public TelaDeListarItens() {
@@ -26,7 +30,7 @@ public class TelaDeListarItens extends JPanel {
 
         this.listarLivros();
 
-        JTable tabelaPendencias = new JTable(tableModel);
+        tabelaPendencias = new JTable(tableModel);
         tabelaPendencias.setFillsViewportHeight(true);
 
         JScrollPane scrollPane = new JScrollPane(tabelaPendencias);
@@ -73,13 +77,29 @@ public class TelaDeListarItens extends JPanel {
         JButton botaoDeLogout = new JButton("Voltar à tela principal");
         GridBagConstraints botaoDeLogoutConstraints = new GridBagConstraints();
         botaoDeLogoutConstraints.gridx = 0;
-        botaoDeLogoutConstraints.gridy = 4;
+        botaoDeLogoutConstraints.gridy = 5;
         botaoDeLogoutConstraints.gridwidth = 2;
         botaoDeLogoutConstraints.fill = GridBagConstraints.HORIZONTAL;
         botaoDeLogoutConstraints.weightx = 1.0;
         botaoDeLogoutConstraints.weighty = 0.0;
         botaoDeLogout.addActionListener(this::voltarTelaPrincipal);
         add(botaoDeLogout, botaoDeLogoutConstraints);
+
+        botaoEnviarItem = new JButton("Realizar empréstimo");
+        GridBagConstraints botaoEnviarItemConstraints = new GridBagConstraints();
+        botaoEnviarItemConstraints.gridx = 0;
+        botaoEnviarItemConstraints.gridy = 4;
+        botaoEnviarItemConstraints.gridwidth = 2;
+        botaoEnviarItemConstraints.fill = GridBagConstraints.HORIZONTAL;
+        botaoEnviarItemConstraints.weightx = 1.0;
+        botaoEnviarItemConstraints.weighty = 0.0;
+        botaoEnviarItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                enviarItemSelecionado();
+            }
+        });
+        add(botaoEnviarItem, botaoEnviarItemConstraints);
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
@@ -101,6 +121,27 @@ public class TelaDeListarItens extends JPanel {
             Livro livro = (Livro) item.get(0);
 
             adicionarItem(livro.getId(), livro.getNome(), livro.getAutor(), livro.getQuantidade());
+        }
+    }
+
+    private void enviarItemSelecionado() {
+        int selectedRow = tabelaPendencias.getSelectedRow();
+
+        if (selectedRow != -1) {
+            Long id = (Long) tableModel.getValueAt(selectedRow, 0);
+            String nome = (String) tableModel.getValueAt(selectedRow, 1);
+            String autor = (String) tableModel.getValueAt(selectedRow, 2);
+            int quantidade = (int) tableModel.getValueAt(selectedRow, 3);
+
+            HashMap<String, Object> itemMap = new HashMap<>();
+            itemMap.put("id", id);
+            itemMap.put("nome", nome);
+            itemMap.put("autor", autor);
+            itemMap.put("quantidade", quantidade);
+
+            // TODO chamar tela de empréstimo passando o hashmap
+        } else {
+            // Nenhum item selecionado
         }
     }
 
