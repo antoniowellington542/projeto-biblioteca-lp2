@@ -16,8 +16,8 @@ public class TelaDeEmprestimo extends JPanel {
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     private final Biblioteca biblioteca = Biblioteca.getBiblioteca();
-    private static HashMap<String, Object> itemMapEmprestimo = new HashMap<>();
     private static JTextField campoDeItemId = new JTextField(20);
+    private static JTextField campoDeNome = new JTextField(20);
 
     public TelaDeEmprestimo(HashMap<String, Object> itemMap) {
         setLayout(new GridBagLayout());
@@ -52,10 +52,11 @@ public class TelaDeEmprestimo extends JPanel {
         constantes.gridy = 2;
         add(labelDeNome, constantes);
 
-        JTextField campoDeNome = new JTextField(20);
+
+        campoDeNome.setEnabled(false);
         if(itemMap!=null) {
             if (itemMap.get("nome") != null) {
-                campoDeItemId.setText(itemMap.get("nome").toString());
+                campoDeNome.setText(itemMap.get("nome").toString());
             }
         }
         constantes.gridx = 1;
@@ -85,6 +86,11 @@ public class TelaDeEmprestimo extends JPanel {
         if(itemMap!=null) {
             if (itemMap.get("id") != null) {
                 campoDeItemId.setText(itemMap.get("id").toString());
+            }
+        }
+        if(itemMap!=null) {
+            if (itemMap.get("nome") != null) {
+                campoDeNome.setText(itemMap.get("nome").toString());
             }
         }
     }
