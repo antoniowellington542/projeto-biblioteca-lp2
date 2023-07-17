@@ -139,12 +139,10 @@ public class TelaDeListarItens extends JPanel {
             itemMap.put("autor", autor);
             itemMap.put("quantidade", quantidade);
 
-            // TODO chamar tela de empréstimo passando o hashmap
-            GerenciadorDeTelas.telaDeEmprestimo().receberInfoItem(itemMap);
+            TelaDeEmprestimo.receberInfoItem(itemMap);
             cardLayout.show(panel, "emprestimo");
-            
         } else {
-            // Nenhum item selecionado
+            dialogo.mostrarMensagemDeAlerta("Escolha um item");
         }
     }
 

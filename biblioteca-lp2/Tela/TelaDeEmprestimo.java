@@ -9,15 +9,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class TelaDeEmprestimo extends JPanel {
     private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
     private final Biblioteca biblioteca = Biblioteca.getBiblioteca();
-    private final HashMap<String, Object> itemMap = new HashMap<>(); 
+    private static HashMap<String, Object> itemMapEmprestimo = new HashMap<>();
+    private static JTextField campoDeItemId = new JTextField(20);
 
-    public TelaDeEmprestimo() {
+    public TelaDeEmprestimo(HashMap<String, Object> itemMap) {
         setLayout(new GridBagLayout());
 
         GridBagConstraints constantes = new GridBagConstraints();
@@ -37,7 +39,11 @@ public class TelaDeEmprestimo extends JPanel {
         constantes.gridy = 1;
         add(labelDeItemId, constantes);
 
-        JTextField campoDeItemId = new JTextField(20);
+        if(itemMap!=null) {
+            if (itemMap.get("id") != null) {
+                campoDeItemId.setText(itemMap.get("id").toString());
+            }
+        }
         constantes.gridx = 1;
         add(campoDeItemId, constantes);
 
@@ -61,10 +67,12 @@ public class TelaDeEmprestimo extends JPanel {
         add(botaoDeLogout, constantes);
     }
 
-    public receberInfoItem(HashMap<String, Object> itemMap)
-    {
-        this.itemMap = itemMap;
-        campoDeItemId.setText( itemMap.get("id"));
+    static public void receberInfoItem(HashMap<String, Object> itemMap) {
+        if(itemMap!=null) {
+            if (itemMap.get("id") != null) {
+                campoDeItemId.setText(itemMap.get("id").toString());
+            }
+        }
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
