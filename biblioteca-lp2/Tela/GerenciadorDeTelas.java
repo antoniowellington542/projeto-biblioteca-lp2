@@ -81,7 +81,7 @@ public class GerenciadorDeTelas {
     }
 
     private JPanel  telaDeEmprestimo () {
-        return new TelaDeEmprestimo();
+        return new TelaDeEmprestimo(null);
     }
 
     private JPanel telaDeDevolucao () {
