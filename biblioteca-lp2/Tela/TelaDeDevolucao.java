@@ -3,6 +3,7 @@ package Tela;
 import BancoDeDados.BancoDeDados;
 import Biblioteca.Biblioteca;
 import Emprestimo.Emprestimo;
+import BancoDeDados.Session;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,6 +81,8 @@ public class TelaDeDevolucao extends JPanel {
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+        if(Session.admin)
+            cardLayout.show(panel, "telaPrincipal");
+        else cardLayout.show(panel, "telaUsuario");
     }
 }

@@ -1,5 +1,6 @@
 package Tela;
 
+import BancoDeDados.Session;
 import Biblioteca.Biblioteca;
 import Item.*;
 
@@ -103,7 +104,9 @@ public class TelaDeListarItens extends JPanel {
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+        if(Session.admin)
+            cardLayout.show(panel, "telaPrincipal");
+        else cardLayout.show(panel, "telaUsuario");
     }
 
     private void buscarLivro(ActionEvent actionEvent) {
@@ -125,24 +128,28 @@ public class TelaDeListarItens extends JPanel {
     }
 
     private void enviarItemSelecionado() {
-        int selectedRow = tabelaPendencias.getSelectedRow();
+        if(Session.admin) {
+            int selectedRow = tabelaPendencias.getSelectedRow();
 
-        if (selectedRow != -1) {
-            Long id = (Long) tableModel.getValueAt(selectedRow, 0);
-            String nome = (String) tableModel.getValueAt(selectedRow, 1);
-            String autor = (String) tableModel.getValueAt(selectedRow, 2);
-            int quantidade = (int) tableModel.getValueAt(selectedRow, 3);
+            if (selectedRow != -1) {
+                Long id = (Long) tableModel.getValueAt(selectedRow, 0);
+                String nome = (String) tableModel.getValueAt(selectedRow, 1);
+                String autor = (String) tableModel.getValueAt(selectedRow, 2);
+                int quantidade = (int) tableModel.getValueAt(selectedRow, 3);
 
-            HashMap<String, Object> itemMap = new HashMap<>();
-            itemMap.put("id", id);
-            itemMap.put("nome", nome);
-            itemMap.put("autor", autor);
-            itemMap.put("quantidade", quantidade);
+                HashMap<String, Object> itemMap = new HashMap<>();
+                itemMap.put("id", id);
+                itemMap.put("nome", nome);
+                itemMap.put("autor", autor);
+                itemMap.put("quantidade", quantidade);
 
-            TelaDeEmprestimo.receberInfoItem(itemMap);
-            cardLayout.show(panel, "emprestimo");
-        } else {
-            dialogo.mostrarMensagemDeAlerta("Escolha um item");
+                TelaDeEmprestimo.receberInfoItem(itemMap);
+                cardLayout.show(panel, "emprestimo");
+            } else {
+                dialogo.mostrarMensagemDeAlerta("Escolha um item");
+            }
+        } else{
+            dialogo.mostrarMensagemDeAlerta("Funcionalidade disponível apenas para funcionários.");
         }
     }
 
@@ -160,7 +167,9 @@ public class TelaDeListarItens extends JPanel {
     }
 
     private void voltarATelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+        if(Session.admin)
+            cardLayout.show(panel, "telaPrincipal");
+        else cardLayout.show(panel, "telaUsuario");
     }
 
     private void adicionarItem(Long id, String nome, String autor, int quantidade) {

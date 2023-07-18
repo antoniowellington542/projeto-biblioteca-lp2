@@ -1,5 +1,7 @@
 package Tela;
 
+import BancoDeDados.Session;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,6 +45,8 @@ public class TelaDeEstoque extends JPanel {
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+        if(Session.admin)
+            cardLayout.show(panel, "telaPrincipal");
+        else cardLayout.show(panel, "telaUsuario");
     }
 }

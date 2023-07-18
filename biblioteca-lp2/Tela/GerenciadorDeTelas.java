@@ -39,6 +39,7 @@ public class GerenciadorDeTelas {
         JPanel painelDeLogin = telaDeLogin();
         JPanel painelDeRegistroDeUsuario = telaDeRegistroDeUsuario();
         JPanel painelPrincipal = telaPrincipal();
+        JPanel painelUsuario = telaUsuario();
         JPanel painelDeEstoque = telaDeEstoque();
         JPanel painelDeEmprestimo = telaDeEmprestimo();
         JPanel painelDeDevolucao = telaDeDevolucao();
@@ -51,6 +52,7 @@ public class GerenciadorDeTelas {
         gerenciadorDePainel.add(painelDeLogin, "login");
         gerenciadorDePainel.add(painelDeRegistroDeUsuario, "registroDeUsuario");
         gerenciadorDePainel.add(painelPrincipal, "telaPrincipal");
+        gerenciadorDePainel.add(painelUsuario, "telaUsuario");
         gerenciadorDePainel.add(painelDeEstoque, "estoque");
         gerenciadorDePainel.add(painelDeEmprestimo, "emprestimo");
         gerenciadorDePainel.add(painelDeDevolucao, "devolucaoDeItem");
@@ -74,6 +76,10 @@ public class GerenciadorDeTelas {
 
     private JPanel telaPrincipal () {
         return new TelaPrincipal();
+    }
+
+    private JPanel telaUsuario () {
+        return new TelaUsuario();
     }
 
     private JPanel telaDeEstoque () {
