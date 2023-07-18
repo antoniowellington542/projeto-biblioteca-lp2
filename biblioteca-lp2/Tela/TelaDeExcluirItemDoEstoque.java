@@ -55,7 +55,6 @@ public class TelaDeExcluirItemDoEstoque extends JPanel {
         try {
             ArrayList<Item> livros = Biblioteca.biblioteca.estoque.getItemsPorNome(nome);
             if (livros.size() > 1) {
-                //TODO ver se pode excluir mais de um
                 dialogo.mostrarMensagemDeAlerta("Erro: Há mais de um livro para ser removido");
                 System.out.println("Erro: Há mais de um livro para ser removido");
             } else if (livros.size() == 1) {

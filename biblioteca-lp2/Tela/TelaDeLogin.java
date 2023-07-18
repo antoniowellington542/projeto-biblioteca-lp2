@@ -60,7 +60,6 @@ public class TelaDeLogin extends JPanel {
         Usuario usuario = Biblioteca.biblioteca.loginUsuario(cpf, password);
         Funcionario funcionario = Biblioteca.biblioteca.loginFuncionario(cpf, password);
 
-        //TODO quando existir telas diferentes para usuario e funcionario, mudar o redirecionamento abaixo
         if (usuario != null) {
             Session.admin = false;
             cardLayout.show(panel, "telaUsuario");
