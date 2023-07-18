@@ -166,12 +166,6 @@ public class TelaDeListarItens extends JPanel {
         return biblioteca.getLivroPeloNome(nome);
     }
 
-    private void voltarATelaPrincipal(ActionEvent actionEvent) {
-        if(Session.admin)
-            cardLayout.show(panel, "telaPrincipal");
-        else cardLayout.show(panel, "telaUsuario");
-    }
-
     private void adicionarItem(Long id, String nome, String autor, int quantidade) {
         Object[] rowData = {id, nome, autor, quantidade};
         tableModel.addRow(rowData);

@@ -68,17 +68,10 @@ public class Estoque {
             Item itemExiste = this.getItemPorId(id);
 
             if (itemExiste != null) {
-                Iterator<Item> iterator = this.items.iterator();
-                while (iterator.hasNext()) {
-                    Item item = iterator.next();
-                    if (item.getId().equals(id)) {
-                        iterator.remove();
-                        break;
-                    }
-                }
+                itemExiste.setQuantidade(itemExiste.getQuantidade()-quantidade);
             }
 
-            System.out.println("Item retirado com sucesso!");
+            System.out.println("Item diminuido com sucesso!");
         } else {
             System.out.println("Quantidade maior do que tem no estoque!");
         }
