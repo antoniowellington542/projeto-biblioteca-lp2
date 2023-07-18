@@ -68,6 +68,7 @@ public class TelaDeDevolucao extends JPanel {
                     lib.excluirEmprestimo(cpf, emprestimo.getItemId());
                     BancoDeDados.removerEmprestimo(cpf, livroId);
                     BancoDeDados.MudarQuantidadeLivro(livroId, 1, true);
+                    Biblioteca.biblioteca.estoque.adicionarEstoque(new Long(livroId), 1);
                     dialogo.mostrarMensagemDeInformacao("Devolução realizada com sucesso!");
                     return;
                 }

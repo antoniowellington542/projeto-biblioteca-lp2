@@ -112,6 +112,7 @@ public class TelaDeEmprestimo extends JPanel {
                 String dataFormatada = formato.format(dataAtual);
                 BancoDeDados.cadastrarEmprestimo(cpf, Long.parseLong(itemId), dataFormatada);
                 BancoDeDados.MudarQuantidadeLivro(new Long(itemId), 1, false);
+                Biblioteca.biblioteca.estoque.diminuirEstoque(new Long(itemId), 1);
                 dialogo.mostrarMensagemDeInformacao("Emprestimo feito com sucesso");
             } else {
                 dialogo.mostrarMensagemDeInformacao("Não foi possível realizar o empréstimo, sem estoque.");
