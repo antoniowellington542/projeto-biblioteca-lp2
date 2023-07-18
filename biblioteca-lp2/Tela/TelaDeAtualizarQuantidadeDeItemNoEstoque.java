@@ -61,8 +61,8 @@ public class TelaDeAtualizarQuantidadeDeItemNoEstoque extends JPanel {
         add(botaoDeDiminuir, constantes);
 
         JButton botaoDeVoltarTela = new JButton();
-        botaoDeVoltarTela.setText("Diminuir");
-        constantes.gridy = 3;
+        botaoDeVoltarTela.setText("Voltar");
+        constantes.gridy = 4;
         botaoDeVoltarTela.addActionListener(this::voltarTela);
         add(botaoDeVoltarTela, constantes);
     }
