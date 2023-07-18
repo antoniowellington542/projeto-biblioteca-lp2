@@ -1,5 +1,6 @@
 package Tela;
 
+import BancoDeDados.Session;
 import Biblioteca.Biblioteca;
 import Emprestimo.Emprestimo;
 
@@ -82,7 +83,9 @@ public class TelaDePendencias extends JPanel {
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+        if(Session.admin)
+            cardLayout.show(panel, "telaPrincipal");
+        else cardLayout.show(panel, "telaUsuario");
     }
 
     private void verificarPendencias(ActionEvent actionEvent) {

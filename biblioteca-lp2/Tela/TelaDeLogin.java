@@ -1,5 +1,6 @@
 package Tela;
 
+import BancoDeDados.Session;
 import Biblioteca.Biblioteca;
 import Contas.Funcionario;
 import Contas.Usuario;
@@ -12,6 +13,7 @@ public class TelaDeLogin extends JPanel {
     private final CardLayout cardLayout = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDelayout();
     private final Dialogo dialogo = new Dialogo();
     private final JPanel panel = GerenciadorDeTelas.getGerenciadorDeTelas().getGerenciadorDePainel();
+
     public TelaDeLogin() {
         setLayout(new GridBagLayout());
 
@@ -57,10 +59,13 @@ public class TelaDeLogin extends JPanel {
     private void login(String cpf, String password) {
         Usuario usuario = Biblioteca.biblioteca.loginUsuario(cpf, password);
         Funcionario funcionario = Biblioteca.biblioteca.loginFuncionario(cpf, password);
+
         //TODO quando existir telas diferentes para usuario e funcionario, mudar o redirecionamento abaixo
         if (usuario != null) {
-            cardLayout.show(panel, "telaPrincipal");
+            Session.admin = false;
+            cardLayout.show(panel, "telaUsuario");
         } else if (funcionario != null) {
+            Session.admin = true;
             cardLayout.show(panel, "telaPrincipal");
         } else {
             dialogo.mostrarMensagemDeInformacao("Usuário não encontrado");
@@ -69,5 +74,6 @@ public class TelaDeLogin extends JPanel {
     }
 
     private void registrar(ActionEvent e) {
-        cardLayout.show(panel, "registroDeUsuario");    }
+        cardLayout.show(panel, "registroDeUsuario");
+    }
 }

@@ -1,6 +1,7 @@
 package Tela;
 
 import BancoDeDados.BancoDeDados;
+import BancoDeDados.Session;
 import Biblioteca.Biblioteca;
 import Item.Item;
 
@@ -96,7 +97,9 @@ public class TelaDeEmprestimo extends JPanel {
     }
 
     private void voltarTelaPrincipal(ActionEvent actionEvent) {
-        cardLayout.show(panel, "telaPrincipal");
+        if(Session.admin)
+            cardLayout.show(panel, "telaPrincipal");
+        else cardLayout.show(panel, "telaUsuario");
     }
 
     private void emprestar(String cpf, String itemId) {
