@@ -1,6 +1,6 @@
-# projeto-biblioteca-lp2
+# Descrição
 
-Esse projeto consiste na criação de um sistema de gerenciamento de uma biblioteca
+Este projeto consiste em um sistema de gerenciamento de uma biblioteca, utilizando a linguagem Java e a interface gráfica Java Swing. O programa possui funções de cadastro de usuários, login (fazendo distinção entre usuários e funcionários), adição e remoção de itens do estoque, busca de itens no catálogo, realização de empréstimos e devoluções, bem como a listagem das pendências de cada usuário. 
 
 ## Pré-requisitos
 
